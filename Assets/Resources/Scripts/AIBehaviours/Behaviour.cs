@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//-------------------------------------------------------------------------------------
+// MethodOrClassName
+// Block Comment
+//-------------------------------------------------------------------------------------
+
 public class Behaviour{
 	protected Agent agent;
 	// Use this for initialization

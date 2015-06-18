@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//-------------------------------------------------------------------------------------
+// MethodOrClassName
+// Block Comment
+//-------------------------------------------------------------------------------------
+
 public class Agent : MonoBehaviour {
 	public float MoveSpeed;
 	public float HP;
