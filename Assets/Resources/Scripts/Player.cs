@@ -2,8 +2,8 @@
 using System.Collections;
 
 //-------------------------------------------------------------------------------------
-// MethodOrClassName
-// Block Comment
+// Player
+// Class to control player input
 //-------------------------------------------------------------------------------------
 
 public class Player : Agent {
