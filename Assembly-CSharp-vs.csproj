@@ -51,6 +51,9 @@
      <Compile Include="Assets\Resources\Scripts\Agent.cs" />
      <Compile Include="Assets\Resources\Scripts\GameManager.cs" />
      <Compile Include="Assets\Resources\Scripts\Player.cs" />
+     <Compile Include="Assets\Resources\Scripts\SceneManager_Base.cs" />
+     <Compile Include="Assets\Resources\Scripts\SceneManager_MainGame.cs" />
+     <Compile Include="Assets\Resources\Scripts\SceneManager_MainMenu.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
