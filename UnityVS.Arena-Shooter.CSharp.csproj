@@ -68,6 +68,7 @@
     <Compile Include="Assets\Resources\Scripts\AIBehaviours\Behaviour.cs" />
     <Compile Include="Assets\Resources\Scripts\AIBehaviours\Seek.cs" />
     <Compile Include="Assets\Resources\Scripts\Agent.cs" />
+    <Compile Include="Assets\Resources\Scripts\GameManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Player.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />

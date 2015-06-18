@@ -49,6 +49,7 @@
      <Compile Include="Assets\Resources\Scripts\AIBehaviours\Behaviour.cs" />
      <Compile Include="Assets\Resources\Scripts\AIBehaviours\Seek.cs" />
      <Compile Include="Assets\Resources\Scripts\Agent.cs" />
+     <Compile Include="Assets\Resources\Scripts\GameManager.cs" />
      <Compile Include="Assets\Resources\Scripts\Player.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

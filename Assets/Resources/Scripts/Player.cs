@@ -7,7 +7,10 @@ using System.Collections;
 //-------------------------------------------------------------------------------------
 
 public class Player : Agent {
-    private 
+
+    private Transform _myTransform = null;
+    
+
 	// Use this for initialization
 	void Start () {
 	    
