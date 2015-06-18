@@ -10,9 +10,9 @@ public class Seek : Behaviour {
 	
 	// Update is called once per frame
 	public override void Update () {
+
 		targetPos = GameObject.FindGameObjectWithTag("Player").transform.position;
-		Vector3 moveVec = targetPos - agent.gameObject.transform.position;
-		moveVec.Normalize ();
-		agent.gameObject.transform.Translate (moveVec * agent.MoveSpeed);
+
+		agent.gameObject.GetComponent<NavMeshAgent> ().destination = targetPos;
 	}
 }
