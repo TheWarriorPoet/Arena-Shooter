@@ -9,11 +9,13 @@ using System.Collections;
 public class Player : Agent {
 
     private Transform _myTransform = null;
-    
+
+    public float RotateSpeed = 10.0f;
+    public float Invert = -1.0f;
 
 	// Use this for initialization
-	void Start () {
-	    
+	void Awake () {
+        _myTransform = transform;
 	}
 	
 	// Update is called once per frame
@@ -23,6 +25,11 @@ public class Player : Agent {
 
     void ProcessInput()
     {
-
+        float translation = Input.GetAxis("Vertical") * MoveSpeed;
+        float rotation = Input.GetAxis("Horizontal") * RotateSpeed * Invert;
+        translation *= Time.deltaTime;
+        rotation *= Time.deltaTime;
+        _myTransform.Translate(0, translation, 0);
+        _myTransform.Rotate(0, 0, rotation);
     }
 }
