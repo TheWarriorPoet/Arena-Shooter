@@ -12,19 +12,19 @@ public class Player : Agent {
 	private Animator _myAnimator = null;
     public GameObject BulletPrefab = null;
 
-
-
     public float RotateSpeed = 10.0f;
-    public float Invert = -1.0f; // Not needed at the moment
+    public float Invert = -1.0f;
 
 	// Use this for initialization
-	void Awake () {
+	void Awake ()
+	{
         _myTransform = transform;
 		_myAnimator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
         ProcessInput();
 	}
 
@@ -33,7 +33,7 @@ public class Player : Agent {
 
 		float xTranslation  = Input.GetAxis("Horizontal") * MoveSpeed;
 		float zTranslation = Input.GetAxis("Vertical") * MoveSpeed;
-		float rotation = Input.GetAxis ("Horizontal") * RotateSpeed;// * Invert;
+		float rotation = Input.GetAxis ("Horizontal") * RotateSpeed * Invert;
 
 		xTranslation *= Time.deltaTime;
 		zTranslation *= Time.deltaTime;
@@ -42,13 +42,11 @@ public class Player : Agent {
 		_myTransform.Translate(xTranslation, 0, zTranslation);
 		//_myTransform.Rotate(0, rotation, 0);
 
-
-
-		//animation stuff
+		// Temporary animation stuff
 		_myAnimator.SetFloat ("yVel", Input.GetAxis ("Horizontal")*Invert);
 		_myAnimator.SetFloat ("xVel", Input.GetAxis ("Vertical"));
 
-		//bad bad but be aproblem with final character
+		// bad bad but be aproblem with final character
 		_myTransform.position = new Vector3 (_myTransform.position.x, 0f, _myTransform.position.z);
 
         if (Input.GetMouseButtonDown(0))
