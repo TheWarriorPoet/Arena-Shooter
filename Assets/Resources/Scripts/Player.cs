@@ -13,7 +13,7 @@ public class Player : Agent {
     public GameObject BulletPrefab = null;
 
     public float RotateSpeed = 10.0f;
-    public float Invert = -1.0f;
+    public float Invert = -1.0f; // Not needed at the moment
 
 	// Use this for initialization
 	void Awake () {
@@ -27,12 +27,16 @@ public class Player : Agent {
 
     void ProcessInput()
     {
-        float translation = Input.GetAxis("Vertical") * MoveSpeed;
-        float rotation = Input.GetAxis("Horizontal") * RotateSpeed * Invert;
-        translation *= Time.deltaTime;
+		float xTranslation = Input.GetAxis("Horizontal") * MoveSpeed;
+		float zTranslation = Input.GetAxis("Vertical") * MoveSpeed;
+		float rotation = Input.GetAxis ("Horizontal") * RotateSpeed;// * Invert;
+
+		xTranslation *= Time.deltaTime;
+		zTranslation *= Time.deltaTime;
         rotation *= Time.deltaTime;
-        _myTransform.Translate(0, translation, 0);
-        _myTransform.Rotate(0, 0, rotation);
+
+		_myTransform.Translate(xTranslation, 0, zTranslation);
+		//_myTransform.Rotate(0, rotation, 0);
 
         if (Input.GetMouseButtonDown(0))
         {
