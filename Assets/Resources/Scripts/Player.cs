@@ -9,8 +9,10 @@ using System.Collections;
 public class Player : Agent {
 
     private Transform _myTransform = null;
-
+	private Animator _myAnimator = null;
     public GameObject BulletPrefab = null;
+
+
 
     public float RotateSpeed = 10.0f;
     public float Invert = -1.0f; // Not needed at the moment
@@ -18,6 +20,7 @@ public class Player : Agent {
 	// Use this for initialization
 	void Awake () {
         _myTransform = transform;
+		_myAnimator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -27,7 +30,8 @@ public class Player : Agent {
 
     void ProcessInput()
     {
-		float xTranslation = Input.GetAxis("Horizontal") * MoveSpeed;
+
+		float xTranslation  = Input.GetAxis("Horizontal") * MoveSpeed;
 		float zTranslation = Input.GetAxis("Vertical") * MoveSpeed;
 		float rotation = Input.GetAxis ("Horizontal") * RotateSpeed;// * Invert;
 
@@ -37,6 +41,15 @@ public class Player : Agent {
 
 		_myTransform.Translate(xTranslation, 0, zTranslation);
 		//_myTransform.Rotate(0, rotation, 0);
+
+
+
+		//animation stuff
+		_myAnimator.SetFloat ("yVel", Input.GetAxis ("Horizontal")*Invert);
+		_myAnimator.SetFloat ("xVel", Input.GetAxis ("Vertical"));
+
+		//bad bad but be aproblem with final character
+		_myTransform.position = new Vector3 (_myTransform.position.x, 0f, _myTransform.position.z);
 
         if (Input.GetMouseButtonDown(0))
         {
