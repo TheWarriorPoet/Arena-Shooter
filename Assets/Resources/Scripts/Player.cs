@@ -10,6 +10,7 @@ public class Player : Agent {
 
     private Transform _myTransform = null;
 	private Animator _myAnimator = null;
+	private Rigidbody _myRigidbody = null;
     public GameObject BulletPrefab = null;
 
     public float RotateSpeed = 10.0f;
@@ -20,6 +21,7 @@ public class Player : Agent {
 	{
         _myTransform = transform;
 		_myAnimator = GetComponent<Animator>();
+		_myRigidbody = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
@@ -30,6 +32,7 @@ public class Player : Agent {
 
     void ProcessInput()
     {
+		_myRigidbody.velocity = Vector3.zero;
 
 		float xTranslation  = Input.GetAxis("Horizontal") * MoveSpeed;
 		float zTranslation = Input.GetAxis("Vertical") * MoveSpeed;
