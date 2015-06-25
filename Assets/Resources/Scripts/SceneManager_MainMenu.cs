@@ -12,11 +12,7 @@ public class SceneManager_MainMenu : SceneManager_Base
 	// Update is called once per frame
 	void Update ()
 	{
-		// Quick hack to go to game with controller/keyboard
-    	if (Input.GetAxis("Submit") > 0)
-		{
-			LoadGame();
-		}
+
     }
 
     public void LoadGame()
