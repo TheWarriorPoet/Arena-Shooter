@@ -4,7 +4,7 @@ using System.Collections;
 public class EnemySpawner : MonoBehaviour {
 	public float spawnDelay = 0.5f;
 	float spawnCounter = 0f;
-	public float spawnCap = 1000;
+	public float spawnCap = 200;
 	// Use this for initialization
 	void Start () {
 	
