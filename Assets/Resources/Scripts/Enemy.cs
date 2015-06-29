@@ -14,4 +14,9 @@ public class Enemy : Agent {
 		Behaviour tempCommand = (Behaviour)commandStack.Peek ();
 		tempCommand.Update ();
 	}
+
+	void OnDestroy()
+	{
+		gameObject.transform.GetComponentInParent<EnemyManager> ().numEnemies -= 1;
+	}
 }
