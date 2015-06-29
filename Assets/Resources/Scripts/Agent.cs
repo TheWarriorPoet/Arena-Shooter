@@ -16,6 +16,7 @@ public class Agent : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
         _myGameManager = GameManager.instance;
+		HP = 1;
 	}
 	
 	// Update is called once per frame

@@ -13,10 +13,10 @@ public class Enemy : Agent {
 	void Update () {
 		Behaviour tempCommand = (Behaviour)commandStack.Peek ();
 		tempCommand.Update ();
+		if (HP <= 0) {
+			gameObject.transform.GetComponentInParent<EnemyManager> ().numEnemies -= 1;
+			Destroy (gameObject);
+		}
 	}
 
-	void OnDestroy()
-	{
-		gameObject.transform.GetComponentInParent<EnemyManager> ().numEnemies -= 1;
-	}
 }
