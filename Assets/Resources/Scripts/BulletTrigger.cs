@@ -7,7 +7,7 @@ public class BulletTrigger : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	if (Damage == 0) {
-			Damage = 1;
+			Damage = 2;
 		}
 	}
 	

@@ -10,7 +10,7 @@ public class PlayerProto : Agent {
 	
 	private Transform _myTransform = null;
 	private Animator _myAnimator = null;
-	private Rigidbody _myRigidbody = null;
+	//private Rigidbody _myRigidbody = null;
 	private CharacterController _myCharacterController = null;
 	
 	public GameObject BulletPrefab = null;
@@ -59,7 +59,12 @@ public class PlayerProto : Agent {
 		
 		// bad but be required with final character
 		_myTransform.position = new Vector3 (_myTransform.position.x, 0f, _myTransform.position.z);
-		
+
+
+		if(Input.GetAxis ("Fire2") != 0)
+		{
+			gameObject.transform.GetChild(0).GetComponent<MeleeTrigger>().Attack ();
+		}
 		if (Input.GetAxis ("Fire1") > 0.1f)
 		{
 			if(ammo > 0)
@@ -74,7 +79,7 @@ public class PlayerProto : Agent {
 						dir.x *= Input.GetAxis ("AimH");
 						dir.y *= Input.GetAxis ("AimV");
 
-						// ^ WTF THIS ACTUALLY WORKS?!?!?!?!? I surprise myself sometimes
+						// ^ WTF THIS ACTUALLY WORKS?!?!?!?!? I surprise myself sometimes		- Mitchell Osborne
 					}
 
 				Vector3 tempDir = dir;
