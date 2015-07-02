@@ -19,6 +19,7 @@ public class PlayerProto : Agent {
 	public int ammo = 1;
 	public float fireRate = 0.1f;
 	private float fireCounter = 0;
+
 	// Use this for initialization
 	void Awake ()
 	{
@@ -66,8 +67,19 @@ public class PlayerProto : Agent {
 		v3T.y = 0;
 		_myTransform.LookAt(v3T);
 
-		if (Input.GetAxis ("AimH") != 0 || Input.GetAxis ("AimV") != 0) {
-			//Implement Rotation based on Right Stick Axis
+		// Implement Rotation based on Right Stick Axis
+		float dirX = Input.GetAxis("AimH");
+		float dirY = Input.GetAxis("AimV");
+
+		if (dirX != 0 || dirY != 0)
+		{
+			float angle = Mathf.Atan2(dirX, dirY) * Mathf.Rad2Deg;
+
+			Vector3 newEuler = _myTransform.eulerAngles;
+
+			newEuler.y = angle;
+
+			_myTransform.eulerAngles = newEuler;
 		}
 
 		if(Input.GetAxis ("Fire2") != 0)
