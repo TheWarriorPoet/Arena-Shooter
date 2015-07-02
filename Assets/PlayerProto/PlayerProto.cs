@@ -23,7 +23,7 @@ public class PlayerProto : Agent {
 	void Awake ()
 	{
 		_myTransform = transform;
-		_myAnimator = GetComponent<Animator>();
+		_myAnimator = transform.GetChild (1).GetComponent<Animator>();
 		//_myRigidbody = GetComponent<Rigidbody>();
 		_myCharacterController = GetComponent<CharacterController> ();
 	}
@@ -32,8 +32,7 @@ public class PlayerProto : Agent {
 	void Update ()
 	{
 		fireCounter += Time.deltaTime;
-		//print ("AimH:" + Input.GetAxis ("AimH"));
-		//print ("AimV:" + Input.GetAxis ("AimV"));
+		print (transform.position);
 		ProcessInput();
 	}
 	
@@ -51,7 +50,7 @@ public class PlayerProto : Agent {
 		
 		rotation *= Time.deltaTime;
 		
-		//_myTransform.Rotate(0, rotation, 0);
+
 		
 		// Temporary animation stuff
 		_myAnimator.SetFloat ("yVel", Input.GetAxis ("Horizontal")*Invert);
@@ -59,7 +58,17 @@ public class PlayerProto : Agent {
 		
 		// bad but be required with final character
 		_myTransform.position = new Vector3 (_myTransform.position.x, 0f, _myTransform.position.z);
+	
+		// Gets the player to look towards the mouse
+		Vector3 v3T = Input.mousePosition;
+		v3T.z = Mathf.Abs(Camera.main.transform.position.y - transform.position.y);
+		v3T = Camera.main.ScreenToWorldPoint(v3T);
+		v3T.y = 0;
+		_myTransform.LookAt(v3T);
 
+		if (Input.GetAxis ("AimH") != 0 || Input.GetAxis ("AimV") != 0) {
+			//Implement Rotation based on Right Stick Axis
+		}
 
 		if(Input.GetAxis ("Fire2") != 0)
 		{
