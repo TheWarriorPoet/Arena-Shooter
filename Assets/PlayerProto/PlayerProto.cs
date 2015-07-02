@@ -96,21 +96,15 @@ public class PlayerProto : Agent {
 					Vector3 dir = Input.mousePosition - objectPos; 
 					if(Input.GetAxis ("AimH") != 0 || Input.GetAxis ("AimV") != 0)
 					{
-						dir = objectPos - transform.position;
-						dir.x *= Input.GetAxis ("AimH");
-						dir.y *= Input.GetAxis ("AimV");
-
-						// ^ WTF THIS ACTUALLY WORKS?!?!?!?!? I surprise myself sometimes		- Mitchell Osborne
+						dir = transform.position + new Vector3( Input.GetAxis ("AimH"),0, Input.GetAxis ("AimV"));
 					}
 
-				Vector3 tempDir = dir;
-				tempDir.y = 0;
-				tempDir.z = dir.y;
+			
 				GameObject Bullet = Instantiate(BulletPrefab);
 				Bullet bullet = Bullet.GetComponent<Bullet>();
 				Vector3 mPos = Input.mousePosition;
 				mPos.y = 1;
-				bullet.Shoot(tempDir, _myTransform.position);
+				bullet.Shoot(dir, _myTransform.position);
 				//ammo -=1;
 					fireCounter = 0;
 				}

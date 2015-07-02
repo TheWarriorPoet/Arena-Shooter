@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Enemy : Agent {
 
+	public float Damage;
 	// Use this for initialization
 	void Awake () {
 		commandStack = new Stack ();
