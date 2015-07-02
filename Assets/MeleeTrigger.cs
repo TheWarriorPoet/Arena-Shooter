@@ -37,7 +37,7 @@ public class MeleeTrigger : MonoBehaviour {
 			if(other.gameObject.tag == "Enemy")
 			{
 				other.gameObject.GetComponent<Agent>().HP -= Damage;
-				other.gameObject.GetComponent<Rigidbody>().velocity = ((other.gameObject.transform.position - gameObject.transform.position) * 50);
+				other.gameObject.GetComponent<NavMeshAgent>().velocity = ((other.gameObject.transform.position - gameObject.transform.position) * 10);
 				print ("Applying Force");
 			}
 			//Destroy (gameObject);
