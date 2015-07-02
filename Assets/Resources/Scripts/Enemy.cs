@@ -19,5 +19,10 @@ public class Enemy : Agent {
 			Destroy (gameObject);
 		}
 	}
-
+	void OnTriggerEnter(Collider Other)
+	{
+		if (Other.gameObject.tag == "Player") {
+			Other.gameObject.GetComponent<Agent>().HP -= Damage;
+		}
+	}
 }
