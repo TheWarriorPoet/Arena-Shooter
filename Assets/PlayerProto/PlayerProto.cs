@@ -53,9 +53,7 @@ public class PlayerProto : Agent {
 		
 
 		
-		// Temporary animation stuff
-		_myAnimator.SetFloat ("yVel", Input.GetAxis ("Horizontal")*Invert);
-		_myAnimator.SetFloat ("xVel", Input.GetAxis ("Vertical"));
+
 		
 		// bad but be required with final character
 		_myTransform.position = new Vector3 (_myTransform.position.x, 0f, _myTransform.position.z);
@@ -81,6 +79,17 @@ public class PlayerProto : Agent {
 
 			_myTransform.eulerAngles = newEuler;
 		}
+
+		//Animation
+		Vector2 characterLeaning = new Vector2 (Input.GetAxis ("Horizontal") * Invert, Input.GetAxis ("Vertical"));
+
+		//apply inverse of current player rotation so it's correct when passed to animator
+		characterLeaning = Quaternion.Euler (0f,0f,_myTransform.eulerAngles.y*Invert)* characterLeaning;
+
+
+		_myAnimator.SetFloat ("yVel", characterLeaning.x);
+		_myAnimator.SetFloat ("xVel",characterLeaning.y);
+
 
 		if(Input.GetAxis ("Fire2") != 0)
 		{
