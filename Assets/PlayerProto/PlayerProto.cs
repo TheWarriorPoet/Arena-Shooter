@@ -16,7 +16,9 @@ public class PlayerProto : Agent {
 	public GameObject BulletPrefab = null;
 	public float RotateSpeed = 10.0f;
 	public float Invert = -1.0f;
-	
+	public int ammo = 1;
+	public float fireRate = 0.1f;
+	private float fireCounter = 0;
 	// Use this for initialization
 	void Awake ()
 	{
@@ -29,6 +31,9 @@ public class PlayerProto : Agent {
 	// Update is called once per frame
 	void Update ()
 	{
+		fireCounter += Time.deltaTime;
+		//print ("AimH:" + Input.GetAxis ("AimH"));
+		//print ("AimV:" + Input.GetAxis ("AimV"));
 		ProcessInput();
 	}
 	
@@ -55,11 +60,35 @@ public class PlayerProto : Agent {
 		// bad but be required with final character
 		_myTransform.position = new Vector3 (_myTransform.position.x, 0f, _myTransform.position.z);
 		
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetAxis ("Fire1") > 0)
 		{
-			GameObject Bullet = Instantiate(BulletPrefab);
-			Bullet bullet = Bullet.GetComponent<Bullet>();
-			bullet.Shoot(Input.mousePosition, _myTransform.position);
+			if(ammo > 0)
+			{
+				if(fireCounter > fireRate)
+				{
+					Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
+					Vector3 dir = Input.mousePosition - objectPos; 
+					if(Input.GetAxis ("AimH") != 0 || Input.GetAxis ("AimV") != 0)
+					{
+						dir = objectPos - transform.position;
+						dir.x *= Input.GetAxis ("AimH");
+						dir.y *= Input.GetAxis ("AimV");
+
+						// ^ WTF THIS ACTUALLY WORKS?!?!?!?!? I surprise myself sometimes
+					}
+
+				Vector3 tempDir = dir;
+				tempDir.y = 0;
+				tempDir.z = dir.y;
+				GameObject Bullet = Instantiate(BulletPrefab);
+				Bullet bullet = Bullet.GetComponent<Bullet>();
+				Vector3 mPos = Input.mousePosition;
+				mPos.y = 1;
+				bullet.Shoot(tempDir, _myTransform.position);
+				//ammo -=1;
+					fireCounter = 0;
+				}
+			}
 		}
 	}
 }
