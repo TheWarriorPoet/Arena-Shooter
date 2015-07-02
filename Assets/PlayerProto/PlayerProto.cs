@@ -60,7 +60,7 @@ public class PlayerProto : Agent {
 		// bad but be required with final character
 		_myTransform.position = new Vector3 (_myTransform.position.x, 0f, _myTransform.position.z);
 		
-		if (Input.GetAxis ("Fire1") > 0)
+		if (Input.GetAxis ("Fire1") > 0.1f)
 		{
 			if(ammo > 0)
 			{
