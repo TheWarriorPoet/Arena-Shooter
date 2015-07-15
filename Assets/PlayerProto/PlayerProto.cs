@@ -107,7 +107,8 @@ public class PlayerProto : Agent {
 					{
 						dir = transform.position + new Vector3( Input.GetAxis ("AimH"),0, Input.GetAxis ("AimV"));
 					}
-
+					dir.z = dir.y;
+					dir.y = 0;
 			
 				GameObject Bullet = Instantiate(BulletPrefab);
 				Bullet bullet = Bullet.GetComponent<Bullet>();
