@@ -12,7 +12,6 @@ public class PlayerProto : Agent {
 	private Animator _myAnimator = null;
 	//private Rigidbody _myRigidbody = null;
 	private CharacterController _myCharacterController = null;
-	private Transform fireDirection = null;
 	
 	public GameObject BulletPrefab = null;
 	public float RotateSpeed = 10.0f;
@@ -20,14 +19,12 @@ public class PlayerProto : Agent {
 	public int ammo = 1;
 	public float fireRate = 0.1f;
 	private float fireCounter = 0;
-	public float maxRotation = 500f;
 
 	// Use this for initialization
 	void Awake ()
 	{
 		_myTransform = transform;
 		_myAnimator = transform.GetChild (1).GetComponent<Animator>();
-		fireDirection = transform.GetChild (1).GetComponent<Transform>();
 		//_myRigidbody = GetComponent<Rigidbody>();
 		_myCharacterController = GetComponent<CharacterController> ();
 	}
@@ -62,34 +59,23 @@ public class PlayerProto : Agent {
 		_myTransform.position = new Vector3 (_myTransform.position.x, 0f, _myTransform.position.z);
 	
 		// Gets the player to look towards the mouse
-		/*
 		Vector3 v3T = Input.mousePosition;
 		v3T.z = Mathf.Abs(Camera.main.transform.position.y - transform.position.y);
 		v3T = Camera.main.ScreenToWorldPoint(v3T);
 		v3T.y = 0;
 		_myTransform.LookAt(v3T);
-		*/
 
 		// Implement Rotation based on Right Stick Axis
 		float dirX = Input.GetAxis("AimH");
 		float dirY = Input.GetAxis("AimV");
 
-		if (dirX > 0.1f || dirY > 0.1f || dirX < -0.1f || dirY < -0.1f)
+		if (dirX != 0 || dirY != 0)
 		{
 			float angle = Mathf.Atan2(dirX, dirY) * Mathf.Rad2Deg;
 
 			Vector3 newEuler = _myTransform.eulerAngles;
-			if (angle <0f){angle += 360f;}
-		
 
-			float newRotation = angle - _myTransform.eulerAngles.y;
-			if (newRotation > 180) newRotation -= 360f;
-			if (newRotation < -180) newRotation += 360f;
-
-
-			newRotation = Mathf.Clamp(newRotation,-maxRotation,maxRotation);
-			//newRotation *= Time.deltaTime;
-			newEuler.y += newRotation;
+			newEuler.y = angle;
 
 			_myTransform.eulerAngles = newEuler;
 		}
@@ -121,12 +107,12 @@ public class PlayerProto : Agent {
 					{
 						dir = transform.position + new Vector3( Input.GetAxis ("AimH"),0, Input.GetAxis ("AimV"));
 					}
-
+					dir.z = dir.y;
+					dir.y = 0;
 			
 				GameObject Bullet = Instantiate(BulletPrefab);
 				Bullet bullet = Bullet.GetComponent<Bullet>();
 				Vector3 mPos = Input.mousePosition;
-
 				mPos.y = 1;
 				bullet.Shoot(dir, _myTransform.position);
 				//ammo -=1;
