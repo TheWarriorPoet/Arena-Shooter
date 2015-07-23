@@ -19,6 +19,7 @@ public class PlayerProto : Agent {
 	public int ammo = 1;
 	public float fireRate = 0.1f;
 	private float fireCounter = 0;
+	private bool hasReleased = true;
 
 	// Use this for initialization
 	void Awake ()
@@ -91,9 +92,13 @@ public class PlayerProto : Agent {
 		_myAnimator.SetFloat ("xVel",characterLeaning.y);
 
 
-		if(Input.GetAxis ("Fire2") != 0)
-		{
-			gameObject.transform.GetChild(0).GetComponent<MeleeTrigger>().Attack ();
+		if (Input.GetAxis ("Fire2") != 0) {
+			if (hasReleased) {
+				hasReleased = false;
+				gameObject.transform.GetChild (0).GetComponent<MeleeTrigger> ().Attack ();
+			}
+		} else {
+			hasReleased = true;
 		}
 		if (Input.GetAxis ("Fire1") > 0.1f)
 		{

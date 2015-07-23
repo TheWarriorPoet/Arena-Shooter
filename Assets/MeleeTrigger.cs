@@ -8,6 +8,7 @@ public class MeleeTrigger : MonoBehaviour {
 	private float AttackCounter;
 	private bool isAttack = false;
 	private bool canAttack = true;
+	private float tempRotat = 0;
 	// Use this for initialization
 	void Start () {
 		AttackCounter = AttackTime;
@@ -21,15 +22,15 @@ public class MeleeTrigger : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (gameObject.transform.localRotation.y > (-70/180)*Mathf.PI) {
-			Quaternion orig = gameObject.transform.rotation;
-			orig.y -= 20;
-			gameObject.transform.localRotation = orig;
+		if (tempRotat > 150) {
+			gameObject.transform.localRotation = Quaternion.identity;
+			gameObject.transform.Rotate (new Vector3(0,-75,0));
 			isAttack = false;
 			canAttack = true;
 		}
 		if (isAttack) {
-			gameObject.transform.Rotate(new Vector3(0,1000*Time.deltaTime));
+			gameObject.transform.Rotate(new Vector3(0,1000*Time.deltaTime,0));
+			tempRotat += 1000*Time.deltaTime;
 			//AttackCounter += 100*Time.deltaTime;
 			gameObject.transform.GetChild(0).GetComponent<MeshRenderer> ().enabled = true;
 			gameObject.GetComponent<BoxCollider> ().enabled = true;
@@ -37,6 +38,7 @@ public class MeleeTrigger : MonoBehaviour {
 			gameObject.transform.GetChild(0).GetComponent<MeshRenderer> ().enabled = false;
 			gameObject.GetComponent<BoxCollider> ().enabled = false;
 			canAttack = true;
+			tempRotat = 0;
 		}
 
 
