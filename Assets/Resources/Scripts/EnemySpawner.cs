@@ -3,8 +3,11 @@ using System.Collections;
 
 public class EnemySpawner : MonoBehaviour {
 	public float spawnDelay = 0.5f;
-	float spawnCounter = 0f;
+	float spawnCounter = 0.0f;
 	public float spawnCap = 200;
+    public float spawnHealth = 100.0f;
+    private bool spawnActive = true;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -12,6 +15,12 @@ public class EnemySpawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (!spawnActive) return;
+        if (spawnHealth <= 0.0f)
+        {
+            spawnActive = false;
+            return;
+        }
 		spawnCounter += Time.deltaTime;
 		if (spawnCounter >= spawnDelay && gameObject.GetComponentInParent<EnemyManager> ().numEnemies < spawnCap) {
 			GameObject tempObj =(GameObject)Resources.Load("Prefabs/Enemy");
@@ -21,4 +30,13 @@ public class EnemySpawner : MonoBehaviour {
 			spawnCounter = 0;
 		}
 	}
+
+    /*void OnTriggerEnter(Collision other)
+    {
+        Debug.Log("Spawner Collision Detected");
+        if (other.gameObject.tag == "Bullet")
+        {
+            spawnHealth -= other.gameObject.GetComponent<BulletTrigger>().Damage;
+        }
+    }*/
 }
