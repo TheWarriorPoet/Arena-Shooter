@@ -5,24 +5,13 @@ using System.Collections.Generic;
 [System.Serializable]
 public class ArenaLevel {
     [SerializeField]
-    private List<EnemySpawner> SpawnPoints = new List<EnemySpawner>();
+    public List<EnemySpawner> SpawnPoints = new List<EnemySpawner>();
     public float SpawnerWinValue = 0.0f;
     public bool LevelOver = false;
     public bool LevelLoaded = false;
     public string NextLevel = "";
-
-
-    public void UpdateWin()
-    {
-        foreach (EnemySpawner es in SpawnPoints)
-        {
-            if (es.spawnHealth > SpawnerWinValue)
-            {
-                return;
-            }
-        }
-        LevelOver = true;
-    }
+    public int StartingSpawners = 0;
+    public int ActiveSpawners = 0;
 }
 
 
@@ -64,14 +53,19 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (MainMenu) return;
-        CurrentLevel.UpdateWin();
-        if (CurrentLevel.LevelOver && VictoryText != null)
+        
+        
+        
+	}
+
+    public void LevelComplete()
+    {
+        if (VictoryText != null)
         {
             VictoryText.SetActive(true);
             StartCoroutine("LoadScene");
         }
-	}
+    }
 
     IEnumerator LoadScene()
     {
