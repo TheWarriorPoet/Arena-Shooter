@@ -16,9 +16,14 @@ public class PlayerProto : Agent {
 	public GameObject BulletPrefab = null;
 	public float RotateSpeed = 10.0f;
 	public float Invert = -1.0f;
-	public int ammo = 1;
+	public float ammo = 100;
+	public float ammoDecrease = 10;
+	public float chargeDelay = 1;
+	public float chargeRate = 1;
 	public float fireRate = 0.1f;
+
 	private float fireCounter = 0;
+	private float chargeTimer;
 	private bool hasReleased = true;
 
 	// Use this for initialization
@@ -120,9 +125,22 @@ public class PlayerProto : Agent {
 				Vector3 mPos = Input.mousePosition;
 				mPos.y = 1;
 				bullet.Shoot(dir, _myTransform.position);
-				//ammo -=1;
-					fireCounter = 0;
+				ammo -= ammoDecrease;
+				chargeTimer = 0;
+				fireCounter = 0;
 				}
+			}
+		}
+		else
+		{
+			// Charge
+			if (chargeTimer >= chargeDelay)
+			{
+				ammo += chargeRate;
+			}
+			else
+			{
+				chargeTimer += Time.deltaTime;
 			}
 		}
 	}

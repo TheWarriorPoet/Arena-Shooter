@@ -15,6 +15,7 @@ public class GUIManager : MonoBehaviour
 	private float hWidth;
 	private float aWidth;
 	private float maxHP;
+	private float maxAmmo;
 
 	// Use this for initialization
 	void Start()
@@ -26,15 +27,26 @@ public class GUIManager : MonoBehaviour
 		aWidth = aRect.sizeDelta.x;
 
 		maxHP = p.HP;
+		maxAmmo = p.ammo;
 	}
 	
 	// Update is called once per frame
 	void Update()
 	{
-		Vector2 newSize = hRect.sizeDelta;
+		Vector2 newSize;
+
+		// Health
+		newSize = hRect.sizeDelta;
 
 		newSize.x = hWidth * p.HP / maxHP;
 
 		hRect.sizeDelta = newSize;
+
+		// Ammo
+		newSize = aRect.sizeDelta;
+		
+		newSize.x = aWidth * p.ammo / maxAmmo;
+		
+		aRect.sizeDelta = newSize;
 	}
 }
