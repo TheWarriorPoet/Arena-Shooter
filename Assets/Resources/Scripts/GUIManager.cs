@@ -14,8 +14,6 @@ public class GUIManager : MonoBehaviour
 	private RectTransform aRect;
 	private float hWidth;
 	private float aWidth;
-	private float maxHP;
-	private float maxAmmo;
 
 	// Use this for initialization
 	void Start()
@@ -26,8 +24,8 @@ public class GUIManager : MonoBehaviour
 		hWidth = hRect.sizeDelta.x;
 		aWidth = aRect.sizeDelta.x;
 
-		maxHP = p.HP;
-		maxAmmo = p.ammo;
+		p.maxHP = p.HP;
+		p.maxAmmo = p.ammo;
 	}
 	
 	// Update is called once per frame
@@ -38,14 +36,14 @@ public class GUIManager : MonoBehaviour
 		// Health
 		newSize = hRect.sizeDelta;
 
-		newSize.x = hWidth * p.HP / maxHP;
+		newSize.x = hWidth * p.HP / p.maxHP;
 
 		hRect.sizeDelta = newSize;
 
 		// Ammo
 		newSize = aRect.sizeDelta;
 		
-		newSize.x = aWidth * p.ammo / maxAmmo;
+		newSize.x = aWidth * p.ammo / p.maxAmmo;
 		
 		aRect.sizeDelta = newSize;
 	}

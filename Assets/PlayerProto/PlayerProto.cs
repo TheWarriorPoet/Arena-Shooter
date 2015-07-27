@@ -16,7 +16,8 @@ public class PlayerProto : Agent {
 	public GameObject BulletPrefab = null;
 	public float RotateSpeed = 10.0f;
 	public float Invert = -1.0f;
-	public float ammo = 100;
+	public float ammo;
+	public float maxAmmo = 100;
 	public float ammoDecrease = 10;
 	public float chargeDelay = 1;
 	public float chargeRate = 1;
@@ -33,6 +34,9 @@ public class PlayerProto : Agent {
 		_myAnimator = transform.GetChild (1).GetComponent<Animator>();
 		//_myRigidbody = GetComponent<Rigidbody>();
 		_myCharacterController = GetComponent<CharacterController> ();
+
+		HP = maxHP;
+		ammo = maxAmmo;
 	}
 	
 	// Update is called once per frame
@@ -134,14 +138,38 @@ public class PlayerProto : Agent {
 		else
 		{
 			// Charge
-			if (chargeTimer >= chargeDelay)
+			if (ammo < maxAmmo)
 			{
-				ammo += chargeRate;
+				if (chargeTimer >= chargeDelay)
+				{
+					ammo += chargeRate;
+				}
+				else
+				{
+					chargeTimer += Time.deltaTime;
+				}
 			}
-			else
-			{
-				chargeTimer += Time.deltaTime;
-			}
+		}
+
+		// Limits
+		if (ammo < 0)
+		{
+			ammo = 0;
+		}
+
+		if (ammo > maxAmmo)
+		{
+			ammo = maxAmmo;
+		}
+
+		if (HP < 0)
+		{
+			HP = 0;
+		}
+		
+		if (HP > maxHP)
+		{
+			HP = maxHP;
 		}
 	}
 }
