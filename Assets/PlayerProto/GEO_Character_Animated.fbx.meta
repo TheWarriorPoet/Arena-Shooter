@@ -1,0 +1,159 @@
+fileFormatVersion: 2
+guid: dd0203d5110a6c1499bcd8ba4af7c041
+timeCreated: 1438247432
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: 01_Head_HP
+    100002: 01_Head_LP
+    100004: 01_HeadBase
+    100006: 05_Leg_HP
+    100008: 05_Torso
+    100010: 06_Ears
+    100012: 06_Ears.LP
+    100014: Armature
+    100016: Bone.009
+    100018: Camera
+    100020: forearm.L
+    100022: forearm.L_end
+    100024: forearm.R
+    100026: forearm.R_end
+    100028: //RootNode
+    100030: Head
+    100032: Head_end
+    100034: Hip.L
+    100036: Hip.R
+    100038: LowerLeg.L
+    100040: LowerLeg.L_end
+    100042: LowerLeg.R
+    100044: LowerLeg.R_end
+    100046: Player
+    100048: Shoulder.L
+    100050: Shoulder.R
+    100052: Spine.01
+    100054: Spine.02
+    100056: Spine.03
+    100058: upperarm.L
+    100060: upperarm.R
+    100062: UpperLeg.L
+    100064: UpperLeg.R
+    400000: 01_Head_HP
+    400002: 01_Head_LP
+    400004: 01_HeadBase
+    400006: 05_Leg_HP
+    400008: 05_Torso
+    400010: 06_Ears
+    400012: 06_Ears.LP
+    400014: Armature
+    400016: Bone.009
+    400018: Camera
+    400020: forearm.L
+    400022: forearm.L_end
+    400024: forearm.R
+    400026: forearm.R_end
+    400028: //RootNode
+    400030: Head
+    400032: Head_end
+    400034: Hip.L
+    400036: Hip.R
+    400038: LowerLeg.L
+    400040: LowerLeg.L_end
+    400042: LowerLeg.R
+    400044: LowerLeg.R_end
+    400046: Player
+    400048: Shoulder.L
+    400050: Shoulder.R
+    400052: Spine.01
+    400054: Spine.02
+    400056: Spine.03
+    400058: upperarm.L
+    400060: upperarm.R
+    400062: UpperLeg.L
+    400064: UpperLeg.R
+    2300000: 01_Head_HP
+    2300002: 01_HeadBase
+    2300004: 05_Leg_HP
+    2300006: 06_Ears
+    3300000: 01_Head_HP
+    3300002: 01_HeadBase
+    3300004: 05_Leg_HP
+    3300006: 06_Ears
+    4300000: 05_Torso
+    4300002: 01_Head_LP
+    4300004: 06_Ears.LP
+    4300006: 05_Leg_HP
+    4300008: 06_Ears
+    4300010: 01_HeadBase
+    4300012: 01_Head_HP
+    7400000: Armature|Backwards
+    7400002: Armature|Forward
+    7400004: Armature|Idle
+    7400006: Armature|Left
+    7400008: Armature|Right
+    9500000: //RootNode
+    13700000: 01_Head_LP
+    13700002: 05_Torso
+    13700004: 06_Ears.LP
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

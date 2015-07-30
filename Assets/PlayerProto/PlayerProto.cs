@@ -9,7 +9,7 @@ using System.Collections;
 public class PlayerProto : Agent {
 	
 	private Transform _myTransform = null;
-	private Animator _myAnimator = null;
+	public Animator _myAnimator = null;
 	//private Rigidbody _myRigidbody = null;
 	private CharacterController _myCharacterController = null;
 	
@@ -31,7 +31,7 @@ public class PlayerProto : Agent {
 	void Awake ()
 	{
 		_myTransform = transform;
-		_myAnimator = transform.GetChild (1).GetComponent<Animator>();
+		//_myAnimator = transform.GetChild (1).GetComponent<Animator>();
 		//_myRigidbody = GetComponent<Rigidbody>();
 		_myCharacterController = GetComponent<CharacterController> ();
 
