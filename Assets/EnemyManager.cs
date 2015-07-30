@@ -9,6 +9,7 @@ public class EnemyManager : MonoBehaviour {
     public float waveMultiplier = 0; //The multiplier for enemy increase per wave. 1.5 = 50% extra units per wave e.g: Wave 1 = 10, Wave 2 = 15, Wave 3 = 22...ish?
     public float remainingEnemies = 0; //The number of enemies the player must defeat to progress to the next wave
     public float timeToNextWave = 0;
+    public int CurrentWave = 1;
 
     public bool canSpawn = true;
     private float spawnCounter = 0;
@@ -46,6 +47,7 @@ public class EnemyManager : MonoBehaviour {
 
         if(spawnCounter >= waveInterval)
         {
+            CurrentWave += 1;
             spawnCounter = 0;
             restTime = false;
             remainingEnemies = (int)baseEnemyCount;
