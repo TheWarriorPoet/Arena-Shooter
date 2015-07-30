@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour {
             return;
         }
 		spawnCounter += Time.deltaTime;
-		if (spawnCounter >= spawnDelay && gameObject.GetComponentInParent<EnemyManager> ().numEnemies < spawnCap) {
+		if (spawnCounter >= spawnDelay && gameObject.GetComponentInParent<EnemyManager> ().canSpawn) {
 			GameObject tempObj =(GameObject)Resources.Load("Prefabs/Enemy");
 			GameObject EnemyObj = (GameObject)Instantiate(tempObj, gameObject.transform.position,Quaternion.identity);
 			EnemyObj.transform.SetParent(transform.parent);

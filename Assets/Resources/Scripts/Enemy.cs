@@ -15,6 +15,7 @@ public class Enemy : Agent {
 		Behaviour tempCommand = (Behaviour)commandStack.Peek ();
 		tempCommand.Update ();
 		if (HP <= 0) {
+            gameObject.transform.GetComponentInParent<EnemyManager>().remainingEnemies -= 1;
 			gameObject.transform.GetComponentInParent<EnemyManager> ().numEnemies -= 1;
 			Destroy (gameObject);
 		}
