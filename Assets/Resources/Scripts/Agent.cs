@@ -9,18 +9,20 @@ using System.Collections;
 public class Agent : MonoBehaviour {
 	public float MoveSpeed;
 	public float HP;
+	public float maxHP;
 	protected Stack commandStack;
 
     // To store Gamemanger reference -- AJ
     protected GameManager _myGameManager = null;
 	// Use this for initialization
-	void Awake () {
+	void Awake()
+	{
         _myGameManager = GameManager.instance;
-		HP = 1;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update()
+	{
 
 	}
 }

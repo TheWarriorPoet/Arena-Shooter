@@ -18,12 +18,18 @@ public class BulletTrigger : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (!(other.gameObject.tag == "Player")) 
+        GameObject OtherGameObject = other.gameObject;
+        Debug.Log("Collision with " + OtherGameObject.tag.ToString());
+        if (!(OtherGameObject.tag == "Player")) 
 		{
-			if(other.gameObject.tag == "Enemy")
+            if (OtherGameObject.tag == "Enemy")
 			{
-				other.gameObject.GetComponent<Agent>().HP -= Damage;
+                OtherGameObject.GetComponent<Agent>().HP -= Damage;
 			}
+            else if (OtherGameObject.tag == "SpawnPoint")
+            {
+                OtherGameObject.GetComponent<EnemySpawner>().spawnHealth -= Damage;
+            }
 			Destroy (gameObject);
 		}
 	}

@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Bullet : Agent {
-
+    public float damage = 1.0f;
 	public float lifeTime;
 	private float lifeCounter = 0;
     private Transform _myTransform = null;
