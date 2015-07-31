@@ -46,5 +46,18 @@ public class GUIManager : MonoBehaviour
 		newSize.x = aWidth * p.ammo / p.maxAmmo;
 		
 		aRect.sizeDelta = newSize;
+
+		// Lives
+		for (int i = 0; i < p.maxLives; ++i)
+		{
+			if (p.lives >= i + 1)
+			{
+				life[i].SetActive(true);
+			}
+			else
+			{
+				life[i].SetActive(false);
+			}
+		}
 	}
 }

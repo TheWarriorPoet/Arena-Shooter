@@ -9,6 +9,7 @@ using System.Collections;
 public class PlayerProto : Agent {
 	
 	private Transform _myTransform = null;
+	private Transform spawnPoint;
 	public Animator _myAnimator = null;
 	//private Rigidbody _myRigidbody = null;
 	private CharacterController _myCharacterController = null;
@@ -23,6 +24,10 @@ public class PlayerProto : Agent {
 	public float chargeRate = 1;
 	public float fireRate = 0.1f;
 
+	public int lives;
+	public int maxLives = 3;
+	public bool hasDied = false;
+
 	private float fireCounter = 0;
 	private float chargeTimer;
 	private bool hasReleased = true;
@@ -31,12 +36,14 @@ public class PlayerProto : Agent {
 	void Awake ()
 	{
 		_myTransform = transform;
+		spawnPoint = transform;
 		//_myAnimator = transform.GetChild (1).GetComponent<Animator>();
 		//_myRigidbody = GetComponent<Rigidbody>();
 		_myCharacterController = GetComponent<CharacterController> ();
 
 		HP = maxHP;
 		ammo = maxAmmo;
+		lives = maxLives;
 	}
 	
 	// Update is called once per frame
@@ -174,12 +181,42 @@ public class PlayerProto : Agent {
 
 		if (HP < 0)
 		{
-			HP = 0;
+			--lives;
+			hasDied = true;
 		}
 		
 		if (HP > maxHP)
 		{
 			HP = maxHP;
 		}
+
+		if (lives < 0)
+		{
+			lives = 0;
+		}
+
+		if (lives > maxLives)
+		{
+			lives = maxLives;
+		}
+
+		// Lives
+		if (hasDied && lives > 0)
+		{
+			Respawn();
+		}
+		else if (hasDied && lives == 0) // fully dead m8
+		{
+			gameObject.SetActive(false);
+		}
+	}
+
+	public void Respawn()
+	{
+		transform.position = new Vector3(-0.9f, 0, 0.3f);
+		HP = maxHP;
+		ammo = maxAmmo;
+
+		hasDied = false;
 	}
 }
