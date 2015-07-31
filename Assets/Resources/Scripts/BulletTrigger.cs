@@ -19,7 +19,7 @@ public class BulletTrigger : MonoBehaviour {
 	void OnTriggerEnter(Collider other)
 	{
         GameObject OtherGameObject = other.gameObject;
-        Debug.Log("Collision with " + OtherGameObject.tag.ToString());
+        //Debug.Log("Collision with " + OtherGameObject.tag.ToString());
         if (!(OtherGameObject.tag == "Player")) 
 		{
             if (OtherGameObject.tag == "Enemy")

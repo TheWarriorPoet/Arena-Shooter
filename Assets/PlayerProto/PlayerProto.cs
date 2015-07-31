@@ -23,6 +23,7 @@ public class PlayerProto : Agent {
 	public float chargeDelay = 1;
 	public float chargeRate = 1;
 	public float fireRate = 0.1f;
+	public float ControllerDeadZone = 0.1f;
 
 	public int lives;
 	public int maxLives = 3;
@@ -31,6 +32,8 @@ public class PlayerProto : Agent {
 	private float fireCounter = 0;
 	private float chargeTimer;
 	private bool hasReleased = true;
+	private bool usingGamepad = false;
+	private Vector3 tempMousePos;
 
 	// Use this for initialization
 	void Awake ()
@@ -50,7 +53,7 @@ public class PlayerProto : Agent {
 	void Update ()
 	{
 		fireCounter += Time.deltaTime;
-		print (transform.position);
+
 		ProcessInput();
 	}
 	
@@ -75,26 +78,40 @@ public class PlayerProto : Agent {
 		// bad but be required with final character
 		_myTransform.position = new Vector3 (_myTransform.position.x, 0f, _myTransform.position.z);
 	
+
+
+
 		// Gets the player to look towards the mouse
-		Vector3 v3T = Input.mousePosition;
-		v3T.z = Mathf.Abs(Camera.main.transform.position.y - transform.position.y);
-		v3T = Camera.main.ScreenToWorldPoint(v3T);
-		v3T.y = 0;
-		_myTransform.LookAt(v3T);
+
+		if (tempMousePos != Input.mousePosition) {
+			usingGamepad = false;
+		}
+		
+		if (!usingGamepad) {
+			
+			Vector3 v3T = Input.mousePosition;
+			tempMousePos = v3T;
+			
+			v3T.z = Mathf.Abs(Camera.main.transform.position.y - transform.position.y);
+			v3T = Camera.main.ScreenToWorldPoint(v3T);
+			v3T.y = 0;
+			_myTransform.LookAt (v3T);
+		}
 
 		// Implement Rotation based on Right Stick Axis
 		float dirX = Input.GetAxis("AimH");
 		float dirY = Input.GetAxis("AimV");
 
-		if (dirX != 0 || dirY != 0)
+		if (dirX > ControllerDeadZone || dirX < -ControllerDeadZone || dirY > ControllerDeadZone || dirY < -ControllerDeadZone)
 		{
+			usingGamepad = true;
 			float angle = Mathf.Atan2(dirX, dirY) * Mathf.Rad2Deg;
 
 			Vector3 newEuler = _myTransform.eulerAngles;
 
 			newEuler.y = angle;
 
-			_myTransform.eulerAngles = newEuler;
+			RotateCharacter(newEuler.y);
 		}
 
 		//Animation
@@ -218,5 +235,26 @@ public class PlayerProto : Agent {
 		ammo = maxAmmo;
 
 		hasDied = false;
+	}
+
+
+	void RotateCharacter (float y){
+		if (y < 0) {
+			y += 360;
+		}
+		Vector3 newEuler = _myTransform.eulerAngles;
+		float tempY = y - newEuler.y;
+		if (tempY > 180)
+			tempY -= 360;
+		if (tempY < -180)
+			tempY += 360;
+		
+		tempY = Mathf.Clamp (tempY, -RotateSpeed*Time.deltaTime, RotateSpeed*Time.deltaTime);
+		
+		
+		
+		newEuler.y += tempY;
+		_myTransform.eulerAngles = newEuler;
+		
 	}
 }
