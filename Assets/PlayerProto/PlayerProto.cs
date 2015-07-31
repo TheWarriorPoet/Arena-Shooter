@@ -9,7 +9,7 @@ using System.Collections;
 public class PlayerProto : Agent {
 	
 	private Transform _myTransform = null;
-	private Transform spawnPoint;
+	private Vector3 spawnPoint;
 	public Animator _myAnimator = null;
 	//private Rigidbody _myRigidbody = null;
 	private CharacterController _myCharacterController = null;
@@ -38,8 +38,8 @@ public class PlayerProto : Agent {
 	// Use this for initialization
 	void Awake ()
 	{
+		spawnPoint = transform.position;
 		_myTransform = transform;
-		spawnPoint = transform;
 		//_myAnimator = transform.GetChild (1).GetComponent<Animator>();
 		//_myRigidbody = GetComponent<Rigidbody>();
 		_myCharacterController = GetComponent<CharacterController> ();
@@ -70,19 +70,11 @@ public class PlayerProto : Agent {
 		_myCharacterController.Move (movement);
 		
 		rotation *= Time.deltaTime;
-		
 
-		
-
-		
 		// bad but be required with final character
 		_myTransform.position = new Vector3 (_myTransform.position.x, 0f, _myTransform.position.z);
-	
-
-
 
 		// Gets the player to look towards the mouse
-
 		if (tempMousePos != Input.mousePosition) {
 			usingGamepad = false;
 		}
@@ -154,9 +146,6 @@ public class PlayerProto : Agent {
                         dir.z += transform.position.z;
                         //LEGENDARY!!!!!!!!!!!!!! OMG and it actually works.... DISGUSTING!!!!!!
                     }
-					
-			
-                    
 
 				    GameObject Bullet = Instantiate(BulletPrefab);
 				    Bullet bullet = Bullet.GetComponent<Bullet>();
@@ -230,7 +219,7 @@ public class PlayerProto : Agent {
 
 	public void Respawn()
 	{
-		transform.position = new Vector3(-0.9f, 0, 0.3f);
+		_myTransform.position = spawnPoint;// new Vector3(-0.9f, 0, 0.3f);
 		HP = maxHP;
 		ammo = maxAmmo;
 
@@ -238,7 +227,8 @@ public class PlayerProto : Agent {
 	}
 
 
-	void RotateCharacter (float y){
+	void RotateCharacter (float y)
+	{
 		if (y < 0) {
 			y += 360;
 		}
@@ -251,10 +241,7 @@ public class PlayerProto : Agent {
 		
 		tempY = Mathf.Clamp (tempY, -RotateSpeed*Time.deltaTime, RotateSpeed*Time.deltaTime);
 		
-		
-		
 		newEuler.y += tempY;
 		_myTransform.eulerAngles = newEuler;
-		
 	}
 }
