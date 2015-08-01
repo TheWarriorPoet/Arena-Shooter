@@ -9,7 +9,7 @@ public class PickupManager : MonoBehaviour
 		HEALTH
 	}
 
-	private PlayerProto player;
+	private PlayerController player;
 
 	public int value;
 	public PType type;
@@ -20,7 +20,7 @@ public class PickupManager : MonoBehaviour
 	{
 		GameObject p = GameObject.FindGameObjectWithTag("Player");
 
-		player = p.GetComponent<PlayerProto>();
+		player = p.GetComponent<PlayerController>();
 	}
 	
 	// Update is called once per frame

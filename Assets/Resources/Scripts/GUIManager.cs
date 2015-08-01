@@ -11,7 +11,7 @@ public class GUIManager : MonoBehaviour
 	public GameObject[] life;
 	public GameObject wave;
 
-	private PlayerProto p;
+	private PlayerController p;
 	private EnemyManager em;
 	private RectTransform hRect;
 	private RectTransform aRect;
@@ -22,7 +22,7 @@ public class GUIManager : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		p = player.GetComponent<PlayerProto>();
+		p = player.GetComponent<PlayerController>();
 		em = spawnManager.GetComponent<EnemyManager>();
 		hRect = health.GetComponent<RectTransform>();
 		aRect = ammo.GetComponent<RectTransform>();

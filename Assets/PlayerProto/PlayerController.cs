@@ -6,7 +6,7 @@ using System.Collections;
 // Class to control player input
 //-------------------------------------------------------------------------------------
 
-public class PlayerProto : Agent {
+public class PlayerController : Agent {
 	
 	private Transform _myTransform = null;
 	private Vector3 spawnPoint;
@@ -62,14 +62,18 @@ public class PlayerProto : Agent {
 		
 		float xTranslation = Input.GetAxis ("Horizontal"); 
 		float zTranslation = Input.GetAxis ("Vertical"); 
-		float rotation = Input.GetAxis ("Horizontal") * RotateSpeed * Invert;
+		//float rotation = Input.GetAxis ("Horizontal") * RotateSpeed * Invert;
+
+		// Implement Rotation based on Right Stick Axis
+		float dirX = Input.GetAxis("AimH");
+		float dirY = Input.GetAxis("AimV");
 		
 		Vector3 movement = new Vector3 (xTranslation, 0f, zTranslation);
 		movement = Vector3.ClampMagnitude(movement,1.0f) * MoveSpeed * Time.deltaTime;
 		
 		_myCharacterController.Move (movement);
 		
-		rotation *= Time.deltaTime;
+		//rotation *= Time.deltaTime;
 
 		// bad but be required with final character
 		_myTransform.position = new Vector3 (_myTransform.position.x, 0f, _myTransform.position.z);
@@ -90,9 +94,7 @@ public class PlayerProto : Agent {
 			_myTransform.LookAt (v3T);
 		}
 
-		// Implement Rotation based on Right Stick Axis
-		float dirX = Input.GetAxis("AimH");
-		float dirY = Input.GetAxis("AimV");
+
 
 		if (dirX > ControllerDeadZone || dirX < -ControllerDeadZone || dirY > ControllerDeadZone || dirY < -ControllerDeadZone)
 		{
@@ -107,7 +109,7 @@ public class PlayerProto : Agent {
 		}
 
 		//Animation
-		Vector2 characterLeaning = new Vector2 (Input.GetAxis ("Horizontal") * Invert, Input.GetAxis ("Vertical"));
+		Vector2 characterLeaning = new Vector2 (xTranslation * Invert, zTranslation);
 
 		//apply inverse of current player rotation so it's correct when passed to animator
 		characterLeaning = Quaternion.Euler (0f,0f,_myTransform.eulerAngles.y*Invert)* characterLeaning;
