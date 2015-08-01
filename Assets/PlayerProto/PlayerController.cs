@@ -24,6 +24,7 @@ public class PlayerController : Agent {
 	public float chargeRate = 1;
 	public float fireRate = 0.1f;
 	public float ControllerDeadZone = 0.1f;
+	public AudioSource WeaponFire = null;
 
 	public int lives;
 	public int maxLives = 3;
@@ -62,7 +63,6 @@ public class PlayerController : Agent {
 		
 		float xTranslation = Input.GetAxis ("Horizontal"); 
 		float zTranslation = Input.GetAxis ("Vertical"); 
-		//float rotation = Input.GetAxis ("Horizontal") * RotateSpeed * Invert;
 
 		// Implement Rotation based on Right Stick Axis
 		float dirX = Input.GetAxis("AimH");
@@ -73,7 +73,6 @@ public class PlayerController : Agent {
 		
 		_myCharacterController.Move (movement);
 		
-		//rotation *= Time.deltaTime;
 
 		// bad but be required with final character
 		_myTransform.position = new Vector3 (_myTransform.position.x, 0f, _myTransform.position.z);
@@ -154,6 +153,10 @@ public class PlayerController : Agent {
 				    Vector3 mPos = Input.mousePosition;
 				    mPos.y = 1;
 				    bullet.Shoot(dir, _myTransform.position);
+					if (WeaponFire != null)
+					{
+						WeaponFire.Play ();
+					}
 				    ammo -= ammoDecrease;
 				    chargeTimer = 0;
 				    fireCounter = 0;
