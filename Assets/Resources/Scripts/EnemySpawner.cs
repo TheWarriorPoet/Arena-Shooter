@@ -7,10 +7,14 @@ public class EnemySpawner : MonoBehaviour {
 	public float spawnCap = 200;
     public float spawnHealth = 100.0f;
     private bool spawnActive = true;
+	public GameObject enemyPrefab;
 
 	// Use this for initialization
 	void Start () {
-	
+
+		if (enemyPrefab == null) {
+			enemyPrefab = (GameObject)Resources.Load("Prefabs/Enemy");
+		}
 	}
 	
 	// Update is called once per frame
@@ -23,8 +27,8 @@ public class EnemySpawner : MonoBehaviour {
         }
 		spawnCounter += Time.deltaTime;
 		if (spawnCounter >= spawnDelay && gameObject.GetComponentInParent<EnemyManager> ().canSpawn) {
-			GameObject tempObj =(GameObject)Resources.Load("Prefabs/Enemy");
-			GameObject EnemyObj = (GameObject)Instantiate(tempObj, gameObject.transform.position,Quaternion.identity);
+			//GameObject tempObj =(GameObject)Resources.Load("Prefabs/Enemy");
+			GameObject EnemyObj = (GameObject)Instantiate(enemyPrefab, gameObject.transform.position,Quaternion.identity);
 			EnemyObj.transform.SetParent(transform.parent);
 			gameObject.GetComponentInParent<EnemyManager>().numEnemies += 1;
 			spawnCounter = 0;
