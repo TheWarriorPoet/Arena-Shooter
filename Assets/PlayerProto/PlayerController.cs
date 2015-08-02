@@ -25,6 +25,7 @@ public class PlayerController : Agent {
 	public float fireRate = 0.1f;
 	public float ControllerDeadZone = 0.1f;
 	public AudioSource WeaponFire = null;
+	public AudioSource WeaponEmpty = null;
 
 	public int lives;
 	public int maxLives = 3;
@@ -161,7 +162,7 @@ public class PlayerController : Agent {
 				    chargeTimer = 0;
 				    fireCounter = 0;
 				}
-			}
+			} else if (!WeaponEmpty.isPlaying){WeaponEmpty.Play ();}
 		}
 		else
 		{
