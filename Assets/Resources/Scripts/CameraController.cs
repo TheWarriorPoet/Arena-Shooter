@@ -27,7 +27,7 @@ public class CameraController : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update()
+	void LateUpdate()
 	{
 		/*Vector3 vel = cc.velocity;
 		vel.y = 0;
