@@ -8,6 +8,8 @@ public class EnemySpawner : MonoBehaviour {
     public float spawnHealth = 100.0f;
     private bool spawnActive = true;
 	public GameObject enemyPrefab;
+	public Animator door = null;
+	private  EnemyManager em;
 
 	// Use this for initialization
 	void Start () {
@@ -15,23 +17,33 @@ public class EnemySpawner : MonoBehaviour {
 		if (enemyPrefab == null) {
 			enemyPrefab = (GameObject)Resources.Load("Prefabs/Enemy");
 		}
+		em = gameObject.GetComponentInParent<EnemyManager> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (!spawnActive) return;
-        if (spawnHealth <= 0.0f)
-        {
-            spawnActive = false;
-            return;
-        }
+
+		if (!spawnActive) {
+
+			return;
+		}
+
+		if (spawnHealth <= 0.0f) {
+			spawnActive = false;
+			return;
+		}
 		spawnCounter += Time.deltaTime;
-		if (spawnCounter >= spawnDelay && gameObject.GetComponentInParent<EnemyManager> ().canSpawn) {
-			//GameObject tempObj =(GameObject)Resources.Load("Prefabs/Enemy");
-			GameObject EnemyObj = (GameObject)Instantiate(enemyPrefab, gameObject.transform.position,Quaternion.identity);
-			EnemyObj.transform.SetParent(transform.parent);
-			gameObject.GetComponentInParent<EnemyManager>().numEnemies += 1;
-			spawnCounter = 0;
+		if (em.canSpawn) {
+			if  (door != null) door.SetBool ("open", true);
+			if (spawnCounter >= spawnDelay) {
+				//GameObject tempObj =(GameObject)Resources.Load("Prefabs/Enemy");
+				GameObject EnemyObj = (GameObject)Instantiate (enemyPrefab, gameObject.transform.position, Quaternion.identity);
+				EnemyObj.transform.SetParent (transform.parent);
+				gameObject.GetComponentInParent<EnemyManager> ().numEnemies += 1;
+				spawnCounter = 0;
+			}
+		} else {
+			if (door != null) door.SetBool ("open",false);
 		}
 	}
 

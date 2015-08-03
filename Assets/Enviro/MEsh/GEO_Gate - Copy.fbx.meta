@@ -1,31 +1,17 @@
 fileFormatVersion: 2
-guid: be991078561f65c44bd5016dfe078f9d
-timeCreated: 1438342864
+guid: 089c6a5861fc1b3459281f8ae2ff4b6d
+timeCreated: 1438597841
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
     100000: //RootNode
-    100002: GEO_Gate
-    100004: GEO_Gate.Right
-    100006: Left
     400000: //RootNode
-    400002: GEO_Gate
-    400004: GEO_Gate.Right
-    400006: Left
     2300000: //RootNode
-    2300002: GEO_Gate
-    2300004: GEO_Gate.Right
-    2300006: Left
     3300000: //RootNode
-    3300002: GEO_Gate
-    3300004: GEO_Gate.Right
-    3300006: Left
     4300000: GEO_Gate
-    4300002: Left
-    4300004: GEO_Gate.Right
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
   animations:
@@ -52,7 +38,7 @@ ModelImporter:
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
