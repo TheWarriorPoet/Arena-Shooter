@@ -15,6 +15,8 @@ public class Player : Agent {
 	
 	public float RotateSpeed = 10.0f;
 	public float Invert = -1.0f;
+
+    private SceneManager_MainGame _SceneManager = null;
 	
 	// Use this for initialization
 	void Awake ()
@@ -22,11 +24,13 @@ public class Player : Agent {
 		_myTransform = transform;
 		_myAnimator = GetComponent<Animator>();
 		_myRigidbody = GetComponent<Rigidbody>();
+        _SceneManager = SceneManager_MainGame.instance;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+        // if (_SceneManager != null && _SceneManager.Paused) return;
 		ProcessInput();
 	}
 	

@@ -4,13 +4,32 @@ using System.Collections;
 public class SceneManager_MainGame : MonoBehaviour {
     public SpawnController SpawnControllerScript = null;
     private GameManager _myGameManager = null;
-    public GameObject VictoryText = null;
+    public GameObject VictoryScreen = null;
+
+    public GameObject PauseWindow = null;
+
+    public bool Paused = false;
 
     public int SpawnerActiveCount = 0;
     public int RemainingSpawners = 0;
 
+    // Singleton Instance to provide simple access through other scripts
+    private static SceneManager_MainGame _instance = null;
+    public static SceneManager_MainGame instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = (SceneManager_MainGame)FindObjectOfType(typeof(SceneManager_MainGame));
+            }
+            return _instance;
+        }
+    }
+
 	// Use this for initialization
 	void Start () {
+        Time.timeScale = 1.0f;
         _myGameManager = GameManager.instance;
         if (_myGameManager != null)
         {
@@ -22,15 +41,45 @@ public class SceneManager_MainGame : MonoBehaviour {
                 _myGameManager.NextLevelName = SpawnControllerScript.ThisLevel.NextLevel;
             }
             _myGameManager.MainMenu = false;
-            if (VictoryText != null)
+            if (VictoryScreen != null)
             {
-                _myGameManager.VictoryText = VictoryText;
+                _myGameManager.VictoryText = VictoryScreen;
             }
         }
 	}
-	
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1.0f;
+        Application.LoadLevel("MainGame");
+    }
+
+    public void Pause()
+    {
+        if (PauseWindow != null)
+        {
+            PauseWindow.SetActive(!PauseWindow.activeSelf);
+        }
+        Paused = !Paused;
+        if (Paused)
+            Time.timeScale = 0.0f;
+        else
+            Time.timeScale = 1.0f;
+    }
+
 	// Update is called once per frame
 	void Update () {
-	
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Pause();
+        }
 	}
+
+    public void MainMenu()
+    {
+        Time.timeScale = 1.0f;
+        Application.LoadLevel("MainMenu");
+    }
+
+    
 }

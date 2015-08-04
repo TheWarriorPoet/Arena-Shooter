@@ -11,9 +11,11 @@ public class EnemySpawner : MonoBehaviour {
 	public Animator door = null;
 	private  EnemyManager em;
 
+    private SceneManager_MainGame _SceneManager = null;
+
 	// Use this for initialization
 	void Start () {
-
+        _SceneManager = SceneManager_MainGame.instance;
 		if (enemyPrefab == null) {
 			enemyPrefab = (GameObject)Resources.Load("Prefabs/Enemy");
 		}
@@ -22,7 +24,7 @@ public class EnemySpawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        // if (_SceneManager != null && _SceneManager.Paused) return;
 		if (!spawnActive) {
 
 			return;

@@ -47,7 +47,10 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
         Object.DontDestroyOnLoad(this);
-        Application.LoadLevel("MainMenu");
+        if (!MainMenu)
+        {
+            Application.LoadLevel("MainMenu");
+        }
         MainMenu = true;
 	}
 	
@@ -62,10 +65,13 @@ public class GameManager : MonoBehaviour {
     {
         if (VictoryText != null)
         {
+            Time.timeScale = 0.0f;
             VictoryText.SetActive(true);
-            StartCoroutine("LoadScene");
+            //StartCoroutine("LoadScene");
         }
     }
+
+    
 
     IEnumerator LoadScene()
     {
@@ -74,6 +80,7 @@ public class GameManager : MonoBehaviour {
             Application.LoadLevel("MainMenu");
         else
             Application.LoadLevel(NextLevelName);
+        Time.timeScale = 1.0f;
         MainMenu = true;
     }
 }

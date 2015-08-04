@@ -7,14 +7,17 @@ public class Bullet : Agent {
 	private float lifeCounter = 0;
     private Transform _myTransform = null;
     private Rigidbody _myRigidbody = null;
+    private SceneManager_MainGame _SceneManager = null;
 	// Use this for initialization
 	void Awake () {
+        _SceneManager = SceneManager_MainGame.instance;
         _myTransform = transform;
         _myRigidbody = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        //if (_SceneManager != null && _SceneManager.Paused) return;
 		lifeCounter += Time.deltaTime;
 		if (lifeCounter > lifeTime) {
 			Destroy (gameObject);

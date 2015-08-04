@@ -37,9 +37,12 @@ public class PlayerController : Agent {
 	private bool usingGamepad = false;
 	private Vector3 tempMousePos;
 
+    private SceneManager_MainGame _SceneManager = null;
+
 	// Use this for initialization
 	void Awake ()
 	{
+        _SceneManager = SceneManager_MainGame.instance;
 		spawnPoint = transform.position;
 		_myTransform = transform;
 		//_myAnimator = transform.GetChild (1).GetComponent<Animator>();
@@ -54,6 +57,7 @@ public class PlayerController : Agent {
 	// Update is called once per frame
 	void Update ()
 	{
+        if (_SceneManager != null && _SceneManager.Paused) return;
 		fireCounter += Time.deltaTime;
 
 		ProcessInput();
