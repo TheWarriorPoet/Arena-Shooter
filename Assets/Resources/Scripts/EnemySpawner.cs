@@ -10,6 +10,7 @@ public class EnemySpawner : MonoBehaviour {
 	public GameObject enemyPrefab;
 	public GameObject spawnPoint;
 	public Animator door = null;
+	public AudioSource DeathSound;
 	private  EnemyManager em;
 
     private SceneManager_MainGame _SceneManager = null;
@@ -47,6 +48,14 @@ public class EnemySpawner : MonoBehaviour {
 			}
 		} else {
 			if (door != null) door.SetBool ("open",false);
+		}
+	}
+
+	public void Die(){
+		door.SetBool ("Dead", true);
+			if (DeathSound != null)
+		{
+			DeathSound.Play();
 		}
 	}
 
