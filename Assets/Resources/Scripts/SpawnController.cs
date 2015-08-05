@@ -19,7 +19,8 @@ public class SpawnController : MonoBehaviour {
         {
             if (es.gameObject.activeSelf && es.spawnHealth <= 0.0f)
             {
-                es.gameObject.SetActive(false);
+				es.Door.SetBool ("Dead",true);
+				es.gameObject.SetActive(false);
                 ThisLevel.ActiveSpawners--;
             }
         }
