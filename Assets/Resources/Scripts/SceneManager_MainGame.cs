@@ -19,13 +19,24 @@ public class SceneManager_MainGame : MonoBehaviour {
     {
         get
         {
-            if (_instance == null)
-            {
-                _instance = (SceneManager_MainGame)FindObjectOfType(typeof(SceneManager_MainGame));
-            }
+			//if (_instance == null)
+			//{
+			//	_instance = (SceneManager_MainGame)FindObjectOfType(typeof(SceneManager_MainGame));
+			//}
             return _instance;
         }
     }
+
+	// --Fix for FindObjectOfType error--
+	void Awake()
+	{
+		if (_instance != null)
+		{
+			// Prohibit more than one instance of this object.
+			Destroy(this);
+		}
+		_instance = this;
+	}
 
 	// Use this for initialization
 	void Start () {
