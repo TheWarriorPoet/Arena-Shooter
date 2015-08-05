@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour {
     public float spawnHealth = 100.0f;
     private bool spawnActive = true;
 	public GameObject enemyPrefab;
+	public GameObject spawnPoint;
 	public Animator door = null;
 	private  EnemyManager em;
 
@@ -39,7 +40,7 @@ public class EnemySpawner : MonoBehaviour {
 			if  (door != null) door.SetBool ("open", true);
 			if (spawnCounter >= spawnDelay) {
 				//GameObject tempObj =(GameObject)Resources.Load("Prefabs/Enemy");
-				GameObject EnemyObj = (GameObject)Instantiate (enemyPrefab, gameObject.transform.position, Quaternion.identity);
+				GameObject EnemyObj = (GameObject)Instantiate(enemyPrefab, spawnPoint.transform.position, Quaternion.identity);
 				EnemyObj.transform.SetParent (transform.parent);
 				gameObject.GetComponentInParent<EnemyManager> ().numEnemies += 1;
 				spawnCounter = 0;
