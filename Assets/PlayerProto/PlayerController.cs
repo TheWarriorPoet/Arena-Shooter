@@ -137,7 +137,7 @@ public class PlayerController : Agent {
 		if (Input.GetAxis ("Fire2") != 0) {
 			if (hasReleased) {
 				hasReleased = false;
-				gameObject.transform.GetChild (0).GetComponent<MeleeTrigger> ().Attack ();
+				gameObject.transform.GetChild (1).GetComponent<MeleeTrigger> ().Attack ();
 			}
 		} else {
 			hasReleased = true;
