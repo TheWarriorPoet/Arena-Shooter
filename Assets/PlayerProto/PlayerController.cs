@@ -22,7 +22,10 @@ public class PlayerController : Agent {
 	public float ammoDecrease = 10;
 	public float chargeDelay = 1;
 	public float chargeRate = 1;
-	public float fireRate = 0.1f;
+	public float baseFireRate = 0.1f;
+    private float fireRate;
+    public bool scaleROF = true;
+    public float bulletDeviation = 0;
 	public float ControllerDeadZone = 0.1f;
 	public AudioSource WeaponFire = null;
 	public AudioSource WeaponEmpty = null;
@@ -48,7 +51,7 @@ public class PlayerController : Agent {
 		//_myAnimator = transform.GetChild (1).GetComponent<Animator>();
 		//_myRigidbody = GetComponent<Rigidbody>();
 		_myCharacterController = GetComponent<CharacterController> ();
-
+        fireRate = baseFireRate;
 		HP = maxHP;
 		ammo = maxAmmo;
 		lives = maxLives;
@@ -126,7 +129,7 @@ public class PlayerController : Agent {
 		if (Input.GetAxis ("Fire2") != 0) {
 			if (hasReleased) {
 				hasReleased = false;
-				gameObject.transform.GetChild (0).GetComponent<MeleeTrigger> ().Attack ();
+				gameObject.transform.GetChild (1).GetComponent<MeleeTrigger> ().Attack ();
 			}
 		} else {
 			hasReleased = true;
@@ -135,6 +138,10 @@ public class PlayerController : Agent {
 		{
 			if(ammo > 0)
 			{
+                if(scaleROF)
+                { 
+                fireRate = baseFireRate * (ammo / maxAmmo);
+                }
 				if(fireCounter > fireRate)
 				{
 					Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
@@ -157,6 +164,11 @@ public class PlayerController : Agent {
 				    Bullet bullet = Bullet.GetComponent<Bullet>();
 				    Vector3 mPos = Input.mousePosition;
 				    mPos.y = 1;
+
+                    Random.seed = (int)System.DateTime.UtcNow.Ticks;
+                    dir.x += dir.x * Random.Range(-bulletDeviation, bulletDeviation);
+                    dir.z += dir.z * Random.Range(-bulletDeviation, bulletDeviation);
+
 				    bullet.Shoot(dir, _myTransform.position);
 					if (WeaponFire != null)
 					{

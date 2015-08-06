@@ -23,10 +23,11 @@ public class EnemyManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(remainingEnemies < maxNumEnemies)
-        {
-            spawnCap = (int)remainingEnemies;
-        }
+        if (remainingEnemies < maxNumEnemies) {
+			spawnCap = (int)remainingEnemies;
+		} else {
+			spawnCap = maxNumEnemies;
+		}
         if(numEnemies >= spawnCap)
         {
             canSpawn = false;
