@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
-public class SceneManager_MainGame : MonoBehaviour {
+public class SceneManager_MainGame : SceneManager_Base {
     public SpawnController SpawnControllerScript = null;
     private GameManager _myGameManager = null;
     public GameObject VictoryScreen = null;
+    public GameObject LoseScreen = null;
 
+    public Text LevelText = null;
     public GameObject PauseWindow = null;
 
     public bool Paused = false;
@@ -46,15 +49,26 @@ public class SceneManager_MainGame : MonoBehaviour {
         {
             if (SpawnControllerScript != null)
             {
+                _myGameManager.CurrentLevel.SpawnPoints.Clear();
+                _myGameManager.CurrentLevel.SpawnPoints = SpawnControllerScript.ThisLevel.SpawnPoints;
+
                 SpawnerActiveCount = SpawnControllerScript.ThisLevel.StartingSpawners;
                 RemainingSpawners = SpawnControllerScript.ThisLevel.ActiveSpawners;
-                _myGameManager.CurrentLevel = SpawnControllerScript.ThisLevel;
-                _myGameManager.NextLevelName = SpawnControllerScript.ThisLevel.NextLevel;
+                _myGameManager.CurrentLevel.StartingSpawners = SpawnerActiveCount;
+                _myGameManager.CurrentLevel.ActiveSpawners = RemainingSpawners;
+
+                _myGameManager.CurrentLevel.LevelNumber++;
+
+                _myGameManager.NextLevelName = "MainGame";
             }
             _myGameManager.MainMenu = false;
             if (VictoryScreen != null)
             {
                 _myGameManager.VictoryText = VictoryScreen;
+            }
+            if (LevelText != null)
+            {
+                LevelText.text = "Level\n" + _myGameManager.CurrentLevel.LevelNumber;
             }
         }
 	}
@@ -92,5 +106,9 @@ public class SceneManager_MainGame : MonoBehaviour {
         Application.LoadLevel("MainMenu");
     }
 
-    
+    public void LostGame()
+    {
+        if (LoseScreen != null) { LoseScreen.SetActive(true); } else Debug.Log("LoseScreen is null");
+        if (_myGameManager != null) { _myGameManager.CurrentLevel.LevelNumber = 0; } else Debug.Log("Gamemanager is null");
+    }
 }

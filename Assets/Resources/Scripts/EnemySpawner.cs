@@ -14,15 +14,23 @@ public class EnemySpawner : MonoBehaviour {
 	private  EnemyManager em;
 
     private SceneManager_MainGame _SceneManager = null;
-
+    private GameManager _myGameManager = null;
 	// Use this for initialization
 	void Start () {
+        _myGameManager = GameManager.instance;
         _SceneManager = SceneManager_MainGame.instance;
 		if (enemyPrefab == null) {
 			enemyPrefab = (GameObject)Resources.Load("Prefabs/Enemy");
 		}
 		em = gameObject.GetComponentInParent<EnemyManager> ();
+
+        if (_myGameManager != null)
+        {
+            spawnHealth = _myGameManager.CurrentLevel.CompoundCalculator(spawnHealth, _myGameManager.CurrentLevel.SpawnerHealthMultiplier);
+        }
+        else Debug.Log("Gamemanager is null");
 	}
+
 	
 	// Update is called once per frame
 	void Update () {
