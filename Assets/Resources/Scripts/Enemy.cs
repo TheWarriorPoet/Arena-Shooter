@@ -9,6 +9,18 @@ public class Enemy : Agent {
     public GameObject HPPack;
     private SceneManager_MainGame _SceneManager = null;
 
+    void Start()
+    {
+        _myGameManager = GameManager.instance;
+        // On scene start, calculate current values
+        if (_myGameManager != null)
+        {
+            MoveSpeed = _myGameManager.CurrentLevel.CompoundCalculator(MoveSpeed, _myGameManager.CurrentLevel.EnemySpeedMultiplier);
+            Damage = _myGameManager.CurrentLevel.CompoundCalculator(Damage, _myGameManager.CurrentLevel.EnemyDamageMultiplier);
+            HP = _myGameManager.CurrentLevel.CompoundCalculator(HP, _myGameManager.CurrentLevel.EnemyHealthMultiplier);
+        }
+    }
+
 	// Use this for initialization
 	void Awake () {
         HP += HP * GameObject.FindGameObjectWithTag("SpawnController").GetComponent<EnemyManager>().CurrentWave/10;
@@ -16,6 +28,7 @@ public class Enemy : Agent {
 		commandStack = new Stack ();
 		commandStack.Push (new Seek (this));
 	}
+
 	
 	// Update is called once per frame
 	void Update () {

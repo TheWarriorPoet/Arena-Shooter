@@ -15,7 +15,7 @@ public class Agent : MonoBehaviour {
     // To store Gamemanger reference -- AJ
     protected GameManager _myGameManager = null;
 	// Use this for initialization
-	void Awake()
+	void Start()
 	{
         _myGameManager = GameManager.instance;
 	}

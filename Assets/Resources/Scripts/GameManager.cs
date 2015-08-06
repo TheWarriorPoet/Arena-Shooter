@@ -6,12 +6,29 @@ using System.Collections.Generic;
 public class ArenaLevel {
     [SerializeField]
     public List<EnemySpawner> SpawnPoints = new List<EnemySpawner>();
-    public float SpawnerWinValue = 0.0f;
+    
     public bool LevelOver = false;
     public bool LevelLoaded = false;
     public string NextLevel = "";
+    
+    // Win Conditions
     public int StartingSpawners = 0;
     public int ActiveSpawners = 0;
+    public float SpawnerWinValue = 0.0f;
+
+    // Difficulty Settings
+    public int LevelNumber = 1;
+    public float EnemyHealthMultiplier = 1.1f;
+    public float EnemySpeedMultiplier = 1.1f;
+    public float EnemyDamageMultiplier = 1.2f;
+    public float SpawnerHealthMultiplier = 1.5f;
+    public float PlayerShootCooldown = 1.05f;
+
+    public float CompoundCalculator(float a_fBaseFValue, float a_fIncreaseRate)
+    {
+        return a_fBaseFValue * Mathf.Pow(a_fIncreaseRate, LevelNumber);
+    }
+    
 }
 
 
@@ -73,14 +90,15 @@ public class GameManager : MonoBehaviour {
 
     
 
-    IEnumerator LoadScene()
+    /*IEnumerator LoadScene()
     {
         yield return new WaitForSeconds(5.0f);
         if (NextLevelName == "")
+        {
             Application.LoadLevel("MainMenu");
+        }
         else
             Application.LoadLevel(NextLevelName);
         Time.timeScale = 1.0f;
-        MainMenu = true;
-    }
+    }*/
 }

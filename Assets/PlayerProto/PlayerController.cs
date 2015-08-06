@@ -42,10 +42,20 @@ public class PlayerController : Agent {
 
     private SceneManager_MainGame _SceneManager = null;
 
+    void Start()
+    {
+        _myGameManager = GameManager.instance;
+        _SceneManager = SceneManager_MainGame.instance;
+        if (_myGameManager != null)
+        {
+            ammoDecrease = _myGameManager.CurrentLevel.CompoundCalculator(ammoDecrease, _myGameManager.CurrentLevel.PlayerShootCooldown);
+        }
+    }
+
 	// Use this for initialization
 	void Awake ()
 	{
-        _SceneManager = SceneManager_MainGame.instance;
+        
 		spawnPoint = transform.position;
 		_myTransform = transform;
 		//_myAnimator = transform.GetChild (1).GetComponent<Animator>();
@@ -56,6 +66,7 @@ public class PlayerController : Agent {
 		ammo = maxAmmo;
 		lives = maxLives;
 	}
+
 	
 	// Update is called once per frame
 	void Update ()
@@ -236,6 +247,7 @@ public class PlayerController : Agent {
 		else if (hasDied && lives == 0) // fully dead m8
 		{
 			gameObject.SetActive(false);
+            if (_SceneManager != null) { _SceneManager.LostGame(); } else Debug.Log("SceneManager is null");
 		}
 	}
 
