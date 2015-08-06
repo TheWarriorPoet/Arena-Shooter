@@ -21,11 +21,11 @@ public class PlayerController : Agent {
 	public float maxAmmo = 100;
 	public float ammoDecrease = 10;
 	public float chargeDelay = 1;
-	public float chargeRate = 1;
+	public float chargeRate = 5;
 	public float baseFireRate = 0.1f;
     private float fireRate;
     public bool scaleROF = true;
-    public float bulletDeviation = 0;
+    public float bulletDeviation = 0.2f;
 	public float ControllerDeadZone = 0.1f;
 	public AudioSource WeaponFire = null;
 	public AudioSource WeaponEmpty = null;
