@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class EnemyManager : MonoBehaviour {
 	public int numEnemies = 0; //Used to keep track of how many enemies are currently spawned
@@ -10,7 +11,8 @@ public class EnemyManager : MonoBehaviour {
 	public float remainingEnemies = 0; //The number of enemies the player must defeat to progress to the next wave
 	public float timeToNextWave = 0;
 	public int CurrentWave = 1;
-	
+    public Text waveText;
+
 	public bool canSpawn = true;
 	private float spawnCounter = 0;
 	public float waveInterval = 0;
@@ -34,11 +36,13 @@ public class EnemyManager : MonoBehaviour {
 			canSpawn = false;
 		}
 		if (spawnCounter >= waveInterval) {
+            CurrentWave += 1;
 			spawnCounter = 0;
 			baseEnemyCount *= waveMultiplier;
 			remainingEnemies = baseEnemyCount;
 			waveInterval *= waveMultiplier;
 			canSpawn = true;
+            waveText.text = "Wave: \n" + CurrentWave;
 		}
 		
 		timeToNextWave = waveInterval - spawnCounter;

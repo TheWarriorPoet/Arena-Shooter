@@ -24,6 +24,7 @@ public class Enemy : Agent {
 	// Use this for initialization
 	void Awake () {
         HP += HP * GameObject.FindGameObjectWithTag("SpawnController").GetComponent<EnemyManager>().CurrentWave/10;
+        GetComponent<NavMeshAgent>().speed += Random.Range(1f, 5f); 
         _SceneManager = SceneManager_MainGame.instance;
 		commandStack = new Stack ();
 		commandStack.Push (new Seek (this));
