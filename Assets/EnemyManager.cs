@@ -40,7 +40,7 @@ public class EnemyManager : MonoBehaviour {
 			spawnCounter = 0;
 			baseEnemyCount *= waveMultiplier;
 			remainingEnemies = baseEnemyCount;
-			waveInterval *= waveMultiplier;
+			waveInterval *= (waveMultiplier / 2);
 			canSpawn = true;
             waveText.text = "Wave: \n" + CurrentWave;
 		}

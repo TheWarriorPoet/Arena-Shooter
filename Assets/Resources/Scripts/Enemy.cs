@@ -7,6 +7,7 @@ public class Enemy : Agent {
 	public GameObject[] particles;
     public int hpChance = 0;
     public GameObject HPPack;
+    public int pathingType = 0;
     private SceneManager_MainGame _SceneManager = null;
 
     void Start()
@@ -23,11 +24,20 @@ public class Enemy : Agent {
 
 	// Use this for initialization
 	void Awake () {
+
         HP += HP * GameObject.FindGameObjectWithTag("SpawnController").GetComponent<EnemyManager>().CurrentWave/10;
-        GetComponent<NavMeshAgent>().speed += Random.Range(1f, 5f); 
+        pathingType = Random.Range(0, 3);
+       // GetComponent<NavMeshAgent>().speed += Random.Range(1f, 5f); 
         _SceneManager = SceneManager_MainGame.instance;
 		commandStack = new Stack ();
-		commandStack.Push (new Seek (this));
+        if(pathingType == 0)
+        {
+            commandStack.Push(new Seek(this));
+        }
+        else 
+        {
+            commandStack.Push(new Intercept(this));
+        }
 	}
 
 	

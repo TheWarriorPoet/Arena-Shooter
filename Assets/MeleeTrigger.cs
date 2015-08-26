@@ -46,7 +46,7 @@ public class MeleeTrigger : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other)
 	{
-		print ("Is Something Happening?");
+		
 		if (!(other.gameObject.tag == "Player")) 
 		{
 			if(other.gameObject.tag == "Enemy")

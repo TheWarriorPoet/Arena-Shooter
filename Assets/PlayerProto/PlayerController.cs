@@ -156,19 +156,21 @@ public class PlayerController : Agent {
 				if(fireCounter > fireRate)
 				{
 					Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
-					Vector3 dir = Input.mousePosition - objectPos; 
+					Vector3 dir;
 					if(Input.GetAxis ("AimH") != 0 || Input.GetAxis ("AimV") != 0)
 					{
-						dir = transform.position + new Vector3( Input.GetAxis ("AimH"),0, Input.GetAxis ("AimV"));
+                        dir = transform.position + new Vector3(Input.GetAxis("AimH") + Random.Range(-bulletDeviation, bulletDeviation), 0, Input.GetAxis("AimV") + Random.Range(-bulletDeviation, bulletDeviation));
                     }
                     else
                     {
+                        dir = Input.mousePosition - objectPos; 
                         dir.z = dir.y;
                         dir.y = 0;
-                        /* ARE YOU READY FOR SOME HACKY CODE!!!!!!!!!! LET ME HEAR YOU SCREAM!!!!!!!!!!!!!! */
                         dir.x += transform.position.x;
                         dir.z += transform.position.z;
-                        //LEGENDARY!!!!!!!!!!!!!! OMG and it actually works.... DISGUSTING!!!!!!
+
+                        dir.x += dir.x * Random.Range(-bulletDeviation, bulletDeviation);
+                        dir.z += dir.z * Random.Range(-bulletDeviation, bulletDeviation);
                     }
 
 				    GameObject Bullet = Instantiate(BulletPrefab);
@@ -177,8 +179,8 @@ public class PlayerController : Agent {
 				    mPos.y = 1;
 
                     Random.seed = (int)System.DateTime.UtcNow.Ticks;
-                    dir.x += dir.x * Random.Range(-bulletDeviation, bulletDeviation);
-                    dir.z += dir.z * Random.Range(-bulletDeviation, bulletDeviation);
+
+
 
 				    bullet.Shoot(dir, _myTransform.position);
 					if (WeaponFire != null)
