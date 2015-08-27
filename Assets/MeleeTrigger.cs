@@ -54,7 +54,11 @@ public class MeleeTrigger : MonoBehaviour {
 				other.gameObject.GetComponent<Agent>().HP -= Damage;
 				other.gameObject.GetComponent<NavMeshAgent>().velocity = ((other.gameObject.transform.position - gameObject.transform.position) * 10);
 				print ("Applying Force");
-			}
+			}else if(other.gameObject.tag == "Bomb")
+            {
+                Debug.Log("Melee Collider has hit Bomb");
+                other.gameObject.GetComponent<Rigidbody>().velocity = ((other.gameObject.transform.position - gameObject.transform.position) * 10);
+            }
 			//Destroy (gameObject);
 		}
 	}
