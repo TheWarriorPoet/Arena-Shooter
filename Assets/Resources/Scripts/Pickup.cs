@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PickupManager : MonoBehaviour
+public class Pickup : MonoBehaviour
 {
 	public enum PType
 	{
