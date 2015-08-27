@@ -43,7 +43,9 @@ public class Pickup : MonoBehaviour
 				break;
 			}
 
-			this.gameObject.SetActive(false);
+			//this.gameObject.SetActive(false);
+
+			Destroy(this);
 		}
 	}
 }
