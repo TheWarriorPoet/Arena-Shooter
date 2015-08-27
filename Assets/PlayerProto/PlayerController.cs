@@ -188,7 +188,16 @@ public class PlayerController : Agent {
 						WeaponFire.Play ();
 					}
 				    ammo -= ammoDecrease;
-				    chargeTimer = 0;
+
+					if (ammo > ammoDecrease)
+					{
+						chargeTimer = 0;
+					}
+					else
+					{
+						chargeTimer = chargeDelay;
+					}
+				    
 				    fireCounter = 0;
 				}
 			} else if (!WeaponEmpty.isPlaying){WeaponEmpty.Play ();}
