@@ -32,10 +32,10 @@ public class MeleeTrigger : MonoBehaviour {
 			gameObject.transform.Rotate(new Vector3(0,1000*Time.deltaTime,0));
 			tempRotat += 1000*Time.deltaTime;
 			//AttackCounter += 100*Time.deltaTime;
-			gameObject.transform.GetChild(0).GetComponent<MeshRenderer> ().enabled = true;
+			gameObject.transform.GetChild(1).GetComponent<MeshRenderer> ().enabled = true;
 			gameObject.GetComponent<BoxCollider> ().enabled = true;
 		} else {
-			gameObject.transform.GetChild(0).GetComponent<MeshRenderer> ().enabled = false;
+			gameObject.transform.GetChild(1).GetComponent<MeshRenderer> ().enabled = false;
 			gameObject.GetComponent<BoxCollider> ().enabled = false;
 			canAttack = true;
 			tempRotat = 0;
