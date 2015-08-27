@@ -4,7 +4,6 @@ using System.Collections;
 public class PickupManager : MonoBehaviour
 {
 	public GameObject prefab;
-	public GameObject spawnPoint;
 	public float spawnTime;
 
 	private GameObject spawnedObject;
@@ -23,7 +22,7 @@ public class PickupManager : MonoBehaviour
 
 			if (timer >= spawnTime)
 			{
-				spawnedObject = (GameObject)Instantiate(prefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+				spawnedObject = (GameObject)Instantiate(prefab, transform.position, transform.rotation);
 
 				timer = 0;
 			}
