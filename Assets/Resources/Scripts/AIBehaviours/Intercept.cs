@@ -9,10 +9,6 @@ public class Intercept : Behaviour
     public Intercept(Agent aAgent) : base(aAgent)
     {
         Player = GameObject.FindGameObjectWithTag("Player");
-        agent.gameObject.GetComponent<NavMeshAgent>().speed *= 2.5f;
-        agent.gameObject.GetComponent<NavMeshAgent>().angularSpeed *= 5;
-        agent.gameObject.transform.localScale *= 0.7f;
-        agent.gameObject.GetComponent<Enemy>().Damage *= 0.5f;
     }
 
     // Update is called once per frame

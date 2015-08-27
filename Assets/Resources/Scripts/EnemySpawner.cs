@@ -4,10 +4,15 @@ using System.Collections;
 public class EnemySpawner : MonoBehaviour {
 	public float spawnDelay = 0.5f;
 	float spawnCounter = 0.0f;
+    float swarmCounter = 0;
 	public float spawnCap = 200;
     public float spawnHealth = 100.0f;
+    public float swarmTimer = 0;
+    public float EnemiesPerSwarm = 0;
+    private float swarmSize = 0;
     private bool spawnActive = true;
 	public GameObject enemyPrefab;
+    public GameObject swarmPrefab;
 	public GameObject spawnPoint;
 	public Animator door = null;
 	public AudioSource DeathSound;
@@ -17,6 +22,7 @@ public class EnemySpawner : MonoBehaviour {
     private GameManager _myGameManager = null;
 	// Use this for initialization
 	void Start () {
+        swarmSize = EnemiesPerSwarm;
         _myGameManager = GameManager.instance;
         _SceneManager = SceneManager_MainGame.instance;
 		if (enemyPrefab == null) {
@@ -45,6 +51,7 @@ public class EnemySpawner : MonoBehaviour {
 			return;
 		}
 		spawnCounter += Time.deltaTime;
+        swarmCounter += Time.deltaTime;
 		if (em.canSpawn) {
 			if  (door != null) door.SetBool ("open", true);
 			if (spawnCounter >= spawnDelay) {
@@ -54,9 +61,21 @@ public class EnemySpawner : MonoBehaviour {
 				gameObject.GetComponentInParent<EnemyManager> ().numEnemies += 1;
 				spawnCounter = 0;
 			}
+            if(swarmCounter > swarmTimer)
+            {
+                for (int i = 0; i < swarmSize; i += 1)
+                {
+                    GameObject EnemyObj = (GameObject)Instantiate(swarmPrefab, spawnPoint.transform.position, Quaternion.identity);
+                    EnemyObj.transform.SetParent(transform.parent);
+                    gameObject.GetComponentInParent<EnemyManager>().numEnemies += 1;
+                }
+                swarmCounter = 0;
+            }
 		} else {
 			if (door != null) door.SetBool ("open",false);
 		}
+
+        swarmSize = EnemiesPerSwarm + (em.CurrentWave / 5);
 	}
 
 	public void Die(){
