@@ -159,7 +159,7 @@ public class PlayerController : Agent {
 					Vector3 dir;
 					if(Input.GetAxis ("AimH") != 0 || Input.GetAxis ("AimV") != 0)
 					{
-                        dir = transform.position + new Vector3(Input.GetAxis("AimH") + Random.Range(-bulletDeviation, bulletDeviation), 0, Input.GetAxis("AimV") + Random.Range(-bulletDeviation, bulletDeviation));
+                        dir = transform.position + new Vector3(Input.GetAxis("AimH") + (Random.Range(-bulletDeviation, bulletDeviation) / 2), 0, Input.GetAxis("AimV") + (Random.Range(-bulletDeviation, bulletDeviation) / 2));
                     }
                     else
                     {
