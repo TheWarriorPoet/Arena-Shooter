@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -84,6 +86,10 @@ public class GameManager : MonoBehaviour {
         {
             Time.timeScale = 0.0f;
             VictoryText.SetActive(true);
+
+			// Select first button in canvas
+			FindObjectOfType<EventSystem>().SetSelectedGameObject(VictoryText.GetComponentInChildren<Button>().gameObject);
+
             //StartCoroutine("LoadScene");
         }
     }

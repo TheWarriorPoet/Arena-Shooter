@@ -135,6 +135,13 @@ public class SceneManager_MainGame : SceneManager_Base {
     public void LostGame()
     {
         if (LoseScreen != null) { LoseScreen.SetActive(true); } else Debug.Log("LoseScreen is null");
+
+		// Select first button in canvas
+		if (LoseScreen.activeInHierarchy)
+		{
+			EventSys.SetSelectedGameObject(LoseScreen.GetComponentInChildren<Button>().gameObject);
+		}
+
         if (_myGameManager != null) { _myGameManager.CurrentLevel.LevelNumber = 0; } else Debug.Log("Gamemanager is null");
     }
 }

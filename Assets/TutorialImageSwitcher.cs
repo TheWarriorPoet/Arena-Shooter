@@ -14,8 +14,12 @@ public class TutorialImageSwitcher : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update ()
+	{
+		if (Input.GetButtonDown("Cancel"))
+		{
+			Application.LoadLevel(LevelName);
+		}
 	}
 
 	public void Nextimage(){

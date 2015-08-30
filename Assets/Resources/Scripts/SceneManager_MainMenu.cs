@@ -50,7 +50,7 @@ public class SceneManager_MainMenu : SceneManager_Base
         {
             _myGameManager.CurrentLevel.LevelNumber = 0;
         }
-        Application.LoadLevel("MainGame");
+        Application.LoadLevel("TutorialScene");
     }
 
     public void QuitGame()

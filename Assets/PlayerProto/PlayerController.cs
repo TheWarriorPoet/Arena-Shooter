@@ -15,6 +15,7 @@ public class PlayerController : Agent {
 	private CharacterController _myCharacterController = null;
 	
 	public GameObject BulletPrefab = null;
+	public GameObject DeathExplosion = null;
 	public float RotateSpeed = 10.0f;
 	public float Invert = -1.0f;
 	public float ammo;
@@ -25,6 +26,7 @@ public class PlayerController : Agent {
 	public float baseFireRate = 0.1f;
     private float fireRate;
     public bool scaleROF = true;
+	public bool canMove;
     public float bulletDeviation = 0;
 	public float ControllerDeadZone = 0.1f;
 	public AudioSource WeaponFire = null;
@@ -55,7 +57,7 @@ public class PlayerController : Agent {
 	// Use this for initialization
 	void Awake ()
 	{
-        
+		canMove = true;
 		spawnPoint = transform.position;
 		_myTransform = transform;
 		//_myAnimator = transform.GetChild (1).GetComponent<Animator>();
@@ -74,12 +76,14 @@ public class PlayerController : Agent {
         if (_SceneManager != null && _SceneManager.Paused) return;
 		fireCounter += Time.deltaTime;
 
-		ProcessInput();
+		if (canMove)
+		{
+			ProcessInput();
+		}
 	}
 	
 	void ProcessInput()
 	{
-		
 		float xTranslation = Input.GetAxis ("Horizontal"); 
 		float zTranslation = Input.GetAxis ("Vertical"); 
 
@@ -111,8 +115,6 @@ public class PlayerController : Agent {
 			v3T.y = 0;
 			_myTransform.LookAt (v3T);
 		}
-
-
 
 		if (dirX > ControllerDeadZone || dirX < -ControllerDeadZone || dirY > ControllerDeadZone || dirY < -ControllerDeadZone)
 		{
@@ -229,9 +231,12 @@ public class PlayerController : Agent {
 			ammo = maxAmmo;
 		}
 
-		if (HP < 0)
+		if (HP < 0 && !hasDied)
 		{
 			--lives;
+
+			Instantiate(DeathExplosion, gameObject.transform.position, gameObject.transform.rotation);
+
 			hasDied = true;
 		}
 		
@@ -251,26 +256,55 @@ public class PlayerController : Agent {
 		}
 
 		// Lives
-		if (hasDied && lives > 0)
+		if (hasDied)// && lives > 0)
 		{
-			Respawn();
+			transform.GetChild(0).gameObject.SetActive(false);
+			GetComponent<Rigidbody>().isKinematic = true;
+			canMove = false;
+
+			Invoke("Respawn", 3);
 		}
-		else if (hasDied && lives == 0) // fully dead m8
-		{
-			gameObject.SetActive(false);
-            if (_SceneManager != null) { _SceneManager.LostGame(); } else Debug.Log("SceneManager is null");
-		}
+		//else if (hasDied && lives == 0) // fully dead m8
+		//{
+			// MOVED BELOW
+		//}
 	}
 
 	public void Respawn()
 	{
-		_myTransform.position = spawnPoint;// new Vector3(-0.9f, 0, 0.3f);
-		HP = maxHP;
-		ammo = maxAmmo;
+		if (lives == 0) // fully dead m8
+		{
+			Dead();
+		}
+		else
+		{
+			_myTransform.position = spawnPoint;
+			HP = maxHP;
+			ammo = maxAmmo;
 
-		hasDied = false;
+			// Dirty hack to get rid of enemies
+			foreach (var enemy in FindObjectsOfType<Enemy>())
+			{
+				Destroy(enemy.gameObject);
+			}
+
+			hasDied = false;
+			GetComponent<Rigidbody>().isKinematic = false;
+			canMove = true;
+			transform.GetChild(0).gameObject.SetActive(true);
+		}
 	}
 
+	public void Dead()
+	{
+		//gameObject.SetActive(false);
+
+		transform.GetChild(0).gameObject.SetActive(false);
+		canMove = false;
+		Time.timeScale = 0.0f;
+
+		if (_SceneManager != null) { _SceneManager.LostGame(); } else Debug.Log("SceneManager is null");
+	}
 
 	void RotateCharacter (float y)
 	{
