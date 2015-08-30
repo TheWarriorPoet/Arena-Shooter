@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using System.Collections;
 
 public class SceneManager_MainGame : SceneManager_Base {
     public SpawnController SpawnControllerScript = null;
     private GameManager _myGameManager = null;
+	public GameObject ControlsScreen = null;
     public GameObject VictoryScreen = null;
     public GameObject LoseScreen = null;
+	public EventSystem EventSys = null;
 
     public Text LevelText = null;
     public GameObject PauseWindow = null;
@@ -84,17 +87,23 @@ public class SceneManager_MainGame : SceneManager_Base {
         if (PauseWindow != null)
         {
             PauseWindow.SetActive(!PauseWindow.activeSelf);
+
+			// Select first button in canvas
+			if (PauseWindow.activeInHierarchy)
+			{
+				EventSys.SetSelectedGameObject(PauseWindow.GetComponentInChildren<Button>().gameObject);
+			}
         }
         Paused = !Paused;
         if (Paused)
-            Time.timeScale = 0.0f;
+			Time.timeScale = 0.0f;
         else
             Time.timeScale = 1.0f;
     }
 
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetButtonDown("Cancel"))
         {
             Pause();
         }
@@ -105,6 +114,23 @@ public class SceneManager_MainGame : SceneManager_Base {
         Time.timeScale = 1.0f;
         Application.LoadLevel("MainMenu");
     }
+
+	public void ControlScreen()
+	{
+		// Toggle GameObject active state
+		ControlsScreen.SetActive(!ControlsScreen.activeInHierarchy);
+		PauseWindow.SetActive(!PauseWindow.activeInHierarchy);
+
+		// Select first button in canvases
+		if (ControlsScreen.activeInHierarchy)
+		{
+			EventSys.SetSelectedGameObject(ControlsScreen.GetComponentInChildren<Button>().gameObject);
+		}
+		else
+		{
+			EventSys.SetSelectedGameObject(PauseWindow.GetComponentInChildren<Button>().gameObject);
+		}
+	}
 
     public void LostGame()
     {
