@@ -12,6 +12,7 @@ public class EnemyManager : MonoBehaviour {
 	public float timeToNextWave = 0;
 	public int CurrentWave = 1;
     public Text waveText;
+    public Text waveTimeText;
 
 	public bool canSpawn = true;
 	private float spawnCounter = 0;
@@ -40,11 +41,12 @@ public class EnemyManager : MonoBehaviour {
 			spawnCounter = 0;
 			baseEnemyCount *= waveMultiplier;
 			remainingEnemies = baseEnemyCount;
-			//waveInterval *= ((waveMultiplier * CurrentWave) / 2);
 			canSpawn = true;
             waveText.text = "Wave: \n" + CurrentWave;
+            
 		}
-		
+      
+        waveTimeText.text = "Next Wave in: " + -(spawnCounter - waveInterval);
 		timeToNextWave = waveInterval - spawnCounter;
 		
 	}
