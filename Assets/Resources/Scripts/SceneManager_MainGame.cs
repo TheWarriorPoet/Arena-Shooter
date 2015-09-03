@@ -76,11 +76,22 @@ public class SceneManager_MainGame : SceneManager_Base {
         }
 	}
 
-    public void RestartGame()
-    {
-        Time.timeScale = 1.0f;
-        Application.LoadLevel("MainGame");
-    }
+	public void RestartGame()
+	{
+		Time.timeScale = 1.0f;
+		//Application.LoadLevel("MainGame");
+
+		Debug.Log("Round is " + _myGameManager.CurrentLevel.LevelNumber.ToString());
+
+		if (_myGameManager.CurrentLevel.LevelNumber % 2 == 1)
+		{
+			Application.LoadLevel("RoundLevel");
+		}
+		else
+		{
+			Application.LoadLevel("MainGame");
+		}
+	}
 
     public void Pause()
     {
