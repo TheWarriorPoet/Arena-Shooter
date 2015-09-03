@@ -11,14 +11,17 @@ public class EnemyManager : MonoBehaviour {
 	public float remainingEnemies = 0; //The number of enemies the player must defeat to progress to the next wave
 	public float timeToNextWave = 0;
 	public int CurrentWave = 1;
+	public Text waveAlert;
     public Text waveText;
     public Text waveTimeText;
+	public AudioSource waveSound;
 
 	public bool canSpawn = true;
 	private float spawnCounter = 0;
 	public float waveInterval = 0;
 	// Use this for initialization
 	void Start () {
+		waveAlert.text = "";
 		remainingEnemies = baseEnemyCount;
 		spawnCap = maxNumEnemies;
 	}
@@ -43,7 +46,8 @@ public class EnemyManager : MonoBehaviour {
 			remainingEnemies = baseEnemyCount;
 			canSpawn = true;
             waveText.text = "Wave: \n" + CurrentWave;
-            
+			waveAlert.text = "WAVE INBOUND";
+			waveSound.Play();
 		}
       
         waveTimeText.text = "Next Wave in: " + -(spawnCounter - waveInterval);
